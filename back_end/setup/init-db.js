@@ -25,10 +25,10 @@ CREATE TABLE Compte (
     numeroCompte VARCHAR(50) UNIQUE NOT NULL,
     solde FLOAT DEFAULT 0,
     etat ENUM('active','bloque') DEFAULT 'active',
-    type ENUM('client','distributeur','literal') NOT NULL,
+    type ENUM('client','distributeur') NOT NULL,
     date_creation DATETIME DEFAULT CURRENT_TIMESTAMP,
     utilisateur_id INT,
-    FOREIGN KEY (utilisateur_id) REFERENCES Utilisateurs(id)
+    FOREIGN KEY (utilisateur_id) REFERENCES Utilisateurs(id) 
 );
 
 `, (err) => {
@@ -80,9 +80,9 @@ CREATE TABLE Transactions (
     frais FLOAT DEFAULT 0,
     statut ENUM('en_attente','valide','annuler') DEFAULT 'en_attente',
     compte_id INT,
-    agent_id INT,
     FOREIGN KEY (compte_id) REFERENCES Compte(id),
-    FOREIGN KEY (agent_id) REFERENCES Agent(id)
+    utilisateur_id INT,
+    FOREIGN KEY (utilisateur_id) REFERENCES Utilisateurs(id) 
 );
 `, (err) => {
   if (err) throw err;
