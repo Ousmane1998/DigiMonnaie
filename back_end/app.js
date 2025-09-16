@@ -1,3 +1,5 @@
+const db = require('./config/db'); // Connexion à MySQL
+
 const express = require('express');
 const cors = require('cors');
 const app = express();
