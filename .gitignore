@@ -1,6 +1,6 @@
 # Angular
-/App-DigiMonnaie/node_modules/
-/App-DigiMonnaie/dist/
+App-DigiMonnaie/node_modules/
+App-DigiMonnaie/dist/
 
 # Node.js
 /back_end/node_modules/
