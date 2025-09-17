@@ -1,14 +1,16 @@
 <div class="login-container">
   <div class="login-card">
-    <h2>Espace client</h2>
+    <div *ngIf="message" [style.color]="message.includes('❌') ? 'red' : 'green'">
+  {{ message }}
+</div>
 
-    <form>
+
+    <form (ngSubmit)="login()">
       <label>Email ou portable</label>
-      <input type="text" placeholder="Entrez votre email ou numéro" />
+      <input [(ngModel)]="email" name="email" placeholder="Email" required>
 
       <label>Mot de passe</label>
-      <input type="password" placeholder="Entrez votre mot de passe" />
-
+      <<input [(ngModel)]="motDePasse" name="motDePasse" type="password" placeholder="Mot de passe" required>
       <button type="submit">Se connecter</button>
     </form>
 
