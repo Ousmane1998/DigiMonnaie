@@ -1,1 +1,38 @@
-<p>sidebar-agent works!</p>
+<nav class="sidebar-agent">
+  <div class="logo-section">
+    <img src="#" alt="Digimonnaie Logo" class="logo" />
+  </div>
+
+  <ul>
+    <li routerLinkActive="active">
+      <a routerLink="/agent-dashboard/dashboard">
+        <i class="bi bi-alarmcd"></i> Tableau de bord
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/agent-dashboard/creer-compte">
+        <i class="bi bi-person-plus"></i> Créer compte
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/agent-dashboard/gerer-compte">
+        <i class="bi bi-person-lines-fill"></i> Gérer compte
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/agent-dashboard/historique">
+        <i class="bi bi-clock-history"></i> Historique
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/agent-dashboard/annuler-transaction">
+        <i class="bi bi-x-circle"></i> Annuler transaction
+      </a>
+    </li>
+    <li>
+      <a routerLink="/login">
+        <i class="fas fa-sign-out-alt"></i> Déconnexion
+      </a>
+    </li>
+  </ul>
+</nav>

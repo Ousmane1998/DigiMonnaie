@@ -1,0 +1,17 @@
+.main-layout {
+  display: flex;
+  height: 100vh;
+  margin: 0;
+}
+
+app-sidebar-agent {
+  width: 220px;
+  height: 100vh;
+}
+
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}

@@ -1,0 +1,59 @@
+.sidebar-agent {
+  width: 220px;
+  background-color: #ffffff; /* ✅ fond blanc */
+  color: #000000;             /* ✅ texte noir */
+  height: 100vh;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #ddd;
+}
+
+.logo-section {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+}
+
+.sidebar-agent ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.sidebar-agent li {
+  width: 100%;
+}
+
+.sidebar-agent a {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #000000; /* ✅ texte noir */
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar-agent a:hover {
+  background-color: #f2f2f2; /* léger gris au survol */
+}
+
+.sidebar-agent i {
+  margin-right: 10px;
+  font-size: 18px;
+  color: #000000; /* ✅ icône noir */
+}
+
+.sidebar-agent .active a {
+  background-color: #e0f7e9; /* ✅ vert très clair pour l’actif */
+  border-left: 4px solid #28a745;
+  font-weight: bold;
+}
