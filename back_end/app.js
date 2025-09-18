@@ -4,6 +4,11 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const agentRoutes = require('./routes/agent');
+const compteRoutes = require('./routes/compte');
+const activateRoutes = require('./routes/activate');
+
+
+
 
 
 
@@ -11,6 +16,8 @@ app.use(cors());
 app.use(express.json());
 // Routes API
 app.use('/api/agent', agentRoutes);
+app.use('/api', compteRoutes);
+app.use('/api', activateRoutes);
 app.get('/', (req, res) => {
   res.send('DigiMonnaie API fonctionne !');
 });
