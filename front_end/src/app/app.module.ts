@@ -14,6 +14,7 @@ import { DashboardAgentComponent } from './pages/agent/dashboard-agent/dashboard
 import { CreerCompteComponent } from './pages/agent/creer-compte/creer-compte.component';
 import { HistoriqueComponent } from './pages/agent/historique/historique.component';
 import { AnnulerTransactionComponent } from './pages/agent/annuler-transaction/annuler-transaction.component';
+import { ActivationComponent } from './pages/activation/activation.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { AnnulerTransactionComponent } from './pages/agent/annuler-transaction/a
     DashboardAgentComponent,
     CreerCompteComponent,
     HistoriqueComponent,
-    AnnulerTransactionComponent
+    AnnulerTransactionComponent,
+    ActivationComponent,
   ],
   imports: [
     CommonModule,

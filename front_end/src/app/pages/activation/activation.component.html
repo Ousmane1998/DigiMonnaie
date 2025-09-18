@@ -1,0 +1,28 @@
+<div class="activation-container">
+  <h2>Activation du compte</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="mot_de_passe">Mot de passe</label>
+      <input id="mot_de_passe" type="password" formControlName="mot_de_passe" />
+      <!-- ✅ Message d'erreur -->
+  <div *ngIf="form.get('mot_de_passe')?.invalid && form.get('mot_de_passe')?.touched">
+    <small style="color: red;">Le mot de passe est requis</small>
+  </div>
+    </div>
+
+    <div>
+      <label for="confirmer">Confirmer le mot de passe</label>
+      <input id="confirmer" type="password" formControlName="confirmer" />
+      <!-- ✅ Message d'erreur -->
+  <div *ngIf="form.get('mot_de_passe')?.invalid && form.get('mot_de_passe')?.touched">
+    <small style="color: red;">Le mot de passe est requis</small>
+  </div>
+  <div *ngIf="form.value.mot_de_passe !== form.value.confirmer && form.get('confirmer')?.touched">
+  <small style="color: red;">Les mots de passe ne correspondent pas</small>
+</div>
+
+    </div>
+
+    <button type="submit" [disabled]="form.invalid">Créer mon mot de passe</button>
+  </form>
+</div>
