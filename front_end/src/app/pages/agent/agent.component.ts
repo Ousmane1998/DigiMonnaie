@@ -6,7 +6,10 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-agent',
   standalone: true,
-  imports: [HeaderComponent, SidebarAgentComponent, RouterOutlet],
+  imports: [
+    HeaderComponent,
+    SidebarAgentComponent, 
+    RouterOutlet],
   templateUrl: './agent.component.html',
   styleUrl: './agent.component.scss'
 })
