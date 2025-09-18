@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SidebarClientComponent } from './sidebar-client.component';
+import { DashboardAgentComponent } from './dashboard-agent.component';
 
-describe('SidebarClientComponent', () => {
-  let component: SidebarClientComponent;
-  let fixture: ComponentFixture<SidebarClientComponent>;
+describe('DashboardAgentComponent', () => {
+  let component: DashboardAgentComponent;
+  let fixture: ComponentFixture<DashboardAgentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SidebarClientComponent]
+      imports: [DashboardAgentComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(SidebarClientComponent);
+    fixture = TestBed.createComponent(DashboardAgentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
