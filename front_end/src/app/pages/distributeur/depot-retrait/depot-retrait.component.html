@@ -1,0 +1,21 @@
+<div class="transaction-container">
+  <h2>Dépôt / Retrait</h2>
+
+  <label>Type :</label>
+  <select [(ngModel)]="type">
+    <option value="depot">Dépôt</option>
+    <option value="retrait">Retrait</option>
+  </select>
+
+  <label>N° compte ou téléphone du destinataire :</label>
+  <input type="text" [(ngModel)]="destinataireCompteId" placeholder="Ex : 07 07 07 07" />
+
+  <label>Montant :</label>
+  <input type="number" [(ngModel)]="montant" placeholder="Ex : 5000" />
+
+  
+  <button (click)="validerTransaction()">Valider</button>
+
+  <p class="message">{{ message }}</p>
+  <p *ngIf="frais > 0">Frais : {{ frais | currency:'XOF' }} – Commission : 1%</p>
+</div>

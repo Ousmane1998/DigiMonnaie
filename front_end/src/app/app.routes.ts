@@ -10,6 +10,14 @@ import { CreerCompteComponent } from './pages/agent/creer-compte/creer-compte.co
 import { HistoriqueComponent } from './pages/agent/historique/historique.component';
 import { AnnulerTransactionComponent } from './pages/agent/annuler-transaction/annuler-transaction.component';
 import { ActivationComponent } from './pages/activation/activation.component';
+import{GererComptesComponent} from './pages/agent/gerer-comptes/gerer-comptes.component';
+
+//Routes distributeur
+import { DistributeurComponent } from './pages/distributeur/distributeur.component';
+import { TableauDeBordComponent } from './pages/distributeur/tableau-de-bord/tableau-de-bord.component';
+import { DepotRetraitComponent } from './pages/distributeur/depot-retrait/depot-retrait.component';
+import { HistoriqueDistributeurComponent } from './pages/distributeur/historique-distributeur/historique-distributeur.component';
+import { AnnulerTransactionDistributeurComponent } from './pages/distributeur/annuler-transaction-distributeur/annuler-transaction-distributeur.component';
 
 
 export const routes: Routes = [
@@ -24,8 +32,20 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardAgentComponent },
       { path: 'creer-compte', component: CreerCompteComponent },
       { path: 'historique', component: HistoriqueComponent },
-      { path: 'annuler-transaction', component: AnnulerTransactionComponent }
+      { path: 'annuler-transaction', component: AnnulerTransactionComponent },
+      { path: 'gerer-compte', component: GererComptesComponent }
        
+    ]
+  },
+  {
+    path: 'distributeur-dashboard',
+    component: DistributeurComponent,
+    children: [
+      { path: '', redirectTo: 'tableau-de-bord', pathMatch: 'full' },
+      { path: 'tableau-de-bord', component: TableauDeBordComponent },
+      { path: 'depot-retrait', component: DepotRetraitComponent },
+      { path: 'historique-distributeur', component: HistoriqueDistributeurComponent },
+      { path: 'annuler-transaction-distributeur', component: AnnulerTransactionDistributeurComponent }
     ]
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' }

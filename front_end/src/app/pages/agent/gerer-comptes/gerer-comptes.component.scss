@@ -1,19 +1,14 @@
-.historique-container {
+.comptes-container {
   padding: 20px;
 
   h2 {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 
-  .filters {
-    text-align: right;
-    margin-bottom: 15px;
-
-    input[type="date"] {
-      padding: 6px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-    }
+  .message {
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #2c3e50;
   }
 
   table {
@@ -30,13 +25,23 @@
       background-color: #f0f0f0;
     }
 
-    .annuler {
-      background-color: #dc3545;
-      color: white;
+    input {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      margin-left: 5px;
+      padding: 5px 10px;
       border: none;
-      padding: 6px 12px;
       border-radius: 4px;
       cursor: pointer;
+    }
+
+    .danger {
+      background-color: #e74c3c;
+      color: white;
     }
   }
 }

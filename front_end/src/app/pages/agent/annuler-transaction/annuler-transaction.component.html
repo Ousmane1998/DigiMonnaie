@@ -1,1 +1,13 @@
-<p>annuler-transaction works!</p>
+<div class="annuler-container">
+  <h2>Annuler une transaction</h2>
+
+  <label>N° de transaction</label>
+  <input type="text" [(ngModel)]="numeroTransaction" placeholder="Ex : TXN123456" />
+
+  <label>Motif d’annulation</label>
+  <textarea [(ngModel)]="motif" placeholder="Erreur de saisie, client incorrect..."></textarea>
+
+  <button class="annuler-btn" (click)="annuler()">Annuler la transaction</button>
+
+  <p class="message">{{ message }}</p>
+</div>

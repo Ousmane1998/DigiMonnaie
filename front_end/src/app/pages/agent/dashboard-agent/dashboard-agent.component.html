@@ -1,1 +1,58 @@
-<p>dashboard-agent works!</p>
+<div class="dashboard-container">
+  <h2>Tableau de bord Agent</h2>
+
+  <div class="metrics">
+    <div class="card">
+      <h3>{{ clients }}</h3>
+      <p>Clients</p>
+    </div>
+    <div class="card">
+      <h3>{{ transactions }}</h3>
+      <p>Transactions aujourd'hui</p>
+    </div>
+    <div class="card">
+      <h3>{{ commissions | number }}</h3>
+      <p>Commissions</p>
+    </div>
+  </div>
+
+  <div class="transactions-section">
+    <h3>Dernières transactions</h3>
+
+    <div class="filters">
+      <label>Date :</label>
+      <input type="date" [(ngModel)]="selectedDate" />
+
+      <label>Type :</label>
+      <select [(ngModel)]="selectedType">
+        <option value="">Tous</option>
+        <option value="Dépôt">Dépôt</option>
+        <option value="Retrait">Retrait</option>
+        <option value="Transfert">Transfert</option>
+      </select>
+
+      <button (click)="filtrerTransactions()">Filtrer</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Heure</th>
+          <th>Type</th>
+          <th>Montant</th>
+          <th>Client</th>
+          <th>Statut</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tx of historiques">
+          <td>{{ tx.heure }}</td>
+          <td>{{ tx.type }}</td>
+          <td>{{ tx.montant | currency:'XOF' }}</td>
+          <td>{{ tx.client }}</td>
+          <td>{{ tx.statut }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

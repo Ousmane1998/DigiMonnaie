@@ -1,0 +1,29 @@
+<p>gerer-comptes works!</p>
+<div class="comptes-container">
+  <h2>Gestion des comptes</h2>
+  <p class="message">{{ message }}</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>N° compte</th>
+        <th>Modifier</th>
+        <th>Bloquer</th>
+        <th>Supprimer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let compte of comptes">
+        <td>{{ compte.nom }}</td>
+        <td>{{ compte.numero_compte }}</td>
+        <td>
+          <input [(ngModel)]="compte.nom" />
+          <button (click)="modifier(compte.id, compte.nom)">✏️</button>
+        </td>
+        <td><button (click)="bloquer(compte.id)">🚫</button></td>
+        <td><button (click)="supprimer(compte.id)" class="danger">🗑️</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,1 +1,30 @@
-<p>historique works!</p>
+<div class="historique-container">
+  <h2>Historique des transactions</h2>
+
+  <div class="filters">
+    <input type="date" />
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>DateType</th>
+        <th>Émetteur</th>
+        <th>Bénéficiaire</th>
+        <th>Montant</th>
+        <th>Statut</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tx of historiques">
+        <td>{{ tx.dateType }}</td>
+        <td>{{ tx.emetteur }}</td>
+        <td>{{ tx.beneficiaire }}</td>
+        <td>+{{ tx.montant | currency:'XOF' }}</td>
+        <td>{{ tx.statut === 'Réussi' ? '✅' : '⏳' }}</td>
+        <td><button class="annuler">Annuler</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -25,16 +25,36 @@ export class LoginComponent {
     motDePasse: this.motDePasse
   }).subscribe({
     next: res => {
-      this.message = '✅ Connexion réussie. Bienvenue Agent !';
-      localStorage.setItem('agentId', res.agentId);
+      const utilisateur = res.utilisateur;
+      const role = utilisateur.role;
+      
+
+      this.message = `✅ Connexion réussie. Bienvenue ${role.charAt(0).toUpperCase() + role.slice(1)} !`;
+
+      localStorage.setItem('utilisateurId', utilisateur.id);
+      localStorage.setItem('role', role);
+
       setTimeout(() => {
-        this.router.navigate(['/agent-dashboard']);
-      }, 1500); // petite pause pour afficher le message
+        switch (role) {
+          case 'agent':
+            this.router.navigate(['/agent-dashboard']);
+            break;
+          case 'client':
+            this.router.navigate(['/client-dashboard']);
+            break;
+          case 'distributeur':
+            this.router.navigate(['/distributeur-dashboard']);
+            break;
+          default:
+            this.message = '❌ Rôle inconnu. Accès refusé.';
+        }
+      }, 1500);
     },
     error: err => {
       this.message = '❌ Échec de connexion. Vérifiez vos identifiants.';
     }
   });
 }
+
 
 }

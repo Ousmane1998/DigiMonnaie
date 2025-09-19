@@ -1,11 +1,11 @@
-.annuler-container {
+.transaction-container {
   padding: 20px;
-  max-width: 500px;
+  max-width: 400px;
   margin: auto;
 
   h2 {
     margin-bottom: 20px;
-    color: #c0392b;
+    color: #2c3e50;
   }
 
   label {
@@ -14,7 +14,7 @@
     font-weight: 600;
   }
 
-  input, textarea {
+  input, select {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -23,9 +23,9 @@
     font-size: 1em;
   }
 
-  .annuler-btn {
+  button {
     margin-top: 20px;
-    background-color: #e74c3c;
+    background-color: #007bff;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -34,13 +34,13 @@
     font-weight: bold;
 
     &:hover {
-      background-color: #c0392b;
+      background-color: #0056b3;
     }
   }
 
   .message {
     margin-top: 15px;
     font-weight: 500;
-    color: #2c3e50;
+    color: #27ae60;
   }
 }
