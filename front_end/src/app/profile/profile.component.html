@@ -1,0 +1,52 @@
+<div class="profile-container">
+    <div class="profile-content">
+        <div class="profile-header">
+            <h2>Mon Profil</h2>
+            <button *ngIf="!isEditing" class="edit-btn" (click)="toggleEdit()">
+                Modifier
+            </button>
+        </div>
+
+        <div *ngIf="isLoading" class="loading">Chargement...</div>
+
+        <div *ngIf="!isLoading" class="profile-details">
+            <div class="profile-card">
+                <div class="profile-avatar">
+                    <img src="assets/images/avatar.png" alt="Avatar" />
+                    <h3>{{ user.fullName }}</h3>
+                    <p>{{ user.accountNumber }}</p>
+                </div>
+
+                <div class="profile-info">
+                    <div class="info-item">
+                        <label>Téléphone</label>
+                        <div *ngIf="!isEditing" class="info-value">{{ user.phone }}</div>
+                        <input *ngIf="isEditing" type="text" [(ngModel)]="user.phone" />
+                    </div>
+
+                    <div class="info-item">
+                        <label>Email</label>
+                        <div *ngIf="!isEditing" class="info-value">{{ user.email }}</div>
+                        <input *ngIf="isEditing" type="email" [(ngModel)]="user.email" />
+                    </div>
+
+                    <div class="info-item">
+                        <label>Adresse</label>
+                        <div *ngIf="!isEditing" class="info-value">{{ user.address }}</div>
+                        <input *ngIf="isEditing" type="text" [(ngModel)]="user.address" />
+                    </div>
+
+                    <div class="info-item">
+                        <label>Numéro de Compte</label>
+                        <div class="info-value">{{ user.accountNumber }}</div>
+                    </div>
+                </div>
+
+                <div *ngIf="isEditing" class="action-buttons">
+                    <button class="save-btn" (click)="saveProfile()">Enregistrer</button>
+                    <button class="cancel-btn" (click)="cancelEdit()">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
