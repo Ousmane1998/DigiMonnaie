@@ -14,6 +14,7 @@ const MemoryStore = require('memorystore')(session);
 const compteRoutesAgent = require('./routes/comptes');
 const utilisateurRoutes = require('./routes/utilisateur');
 const distributeurRoutes = require('./routes/distributeur');
+const authRoutes = require('./routes/auth');
 
 
 
@@ -49,6 +50,7 @@ app.use('/api/client', clientRoutes);
 app.use('/api/comptes', compteRoutesAgent);
 app.use('/api/utilisateur', utilisateurRoutes);
 app.use('/api/distributeur', distributeurRoutes);
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.send('DigiMonnaie API fonctionne !');

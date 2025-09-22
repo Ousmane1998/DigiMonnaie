@@ -9,7 +9,7 @@
     </div>
 
     <div class="actions-principales">
-      <button class="action-btn">✈️ Transférer</button>
+      <button class="action-btn"  routerLink="/client-dashboard/transfert">✈️ Transférer</button>
       <button class="action-btn" (click)="toggleQR()">📱 Mon QR</button>
     </div>
   </div>
@@ -17,9 +17,9 @@
   <div class="actions-rapides">
     <h3>Actions rapides</h3>
     <div class="quick-buttons">
-      <button class="quick-btn">✈️ Transférer</button>
+      <button class="quick-btn" routerLink="/client-dashboard/transfert">✈️ Transférer</button>
       <button class="quick-btn" (click)="allerVersQR()" (click)="toggleQR()">📱 Mon QR</button>
-      <button class="quick-btn">📄 Historique</button>
+      <button class="quick-btn" routerLink="/client-dashboard/historique">📄 Historique</button>
       <button class="quick-btn" (click)="allerVersProfil()">👤 Profil</button>
     </div>
   </div>

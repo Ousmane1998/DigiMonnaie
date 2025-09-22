@@ -1,0 +1,95 @@
+.transfert-form {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #f9faff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.transfert-form h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.transfert-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.transfert-form label {
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+.transfert-form input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #aaa;
+  border-radius: 20px;
+  font-size: 15px;
+  outline: none;
+  transition: border 0.2s ease-in-out, box-shadow 0.2s;
+}
+
+.transfert-form input:focus {
+  border-color: #333;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+}
+
+.transfert-form p {
+  margin: 0;
+  font-size: 14px;
+  text-align: left;
+}
+
+.transfert-form p:first-of-type {
+  color: red;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.resume {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: right;
+}
+
+.btn-envoyer {
+  margin-top: 20px;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #1db954; /* vert */
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.btn-envoyer:hover {
+  background: #17a444;
+}
+
+
+.alert {
+  margin-bottom: 15px;
+  font-weight: bold;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

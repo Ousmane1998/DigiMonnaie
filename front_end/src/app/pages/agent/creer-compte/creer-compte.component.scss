@@ -1,45 +1,123 @@
+/* ===== Style général ===== */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+input, button, label {
+  display: block;
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+/* ===== Input style ===== */
+input {
+  padding: 12px 15px;
+  border: 1px solid #28a745;
+  border-radius: 12px;
+  outline: none;
+  transition: 0.3s ease;
+  background: #fff;
+}
+
+input:focus {
+  border-color: #1e7e34;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+/* ===== Boutons ===== */
+button {
+  padding: 12px 20px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button[type="button"], button[type="submit"] {
+  margin-top: 10px;
+}
+
+button[type="button"] {
+  background: #fff;
+  border: 1px solid #28a745;
+  color: #28a745;
+}
+
+button[type="button"]:hover {
+  background: #28a745;
+  color: #fff;
+}
+
+button[type="submit"], .next-btn {
+  background: #28a745;
+  color: #fff;
+}
+
+button[type="submit"]:hover, .next-btn:hover {
+  background: #1e7e34;
+}
+
+/* ===== Step indicator (les petits ronds en haut) ===== */
 .step-indicator {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  text-align: center;
+  margin: 20px 0;
 }
 
 .step-indicator span {
+  display: inline-block;
   width: 12px;
   height: 12px;
+  margin: 0 6px;
   border-radius: 50%;
-  background-color: #ccc;
-  margin: 0 5px;
+  background: #ccc;
 }
 
-.step-indicator .active {
-  background-color: #28a745;
+.step-indicator span.active {
+  background: #28a745;
 }
 
-form {
+/* ===== Radio buttons (Étape 3) ===== */
+label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 20px;
+  font-size: 16px;
+}
+
+input[type="radio"] {
+  width: auto;
+  margin-right: 8px;
+  accent-color: #28a745; /* Nouveau CSS pour colorer le bouton radio */
+}
+
+.step-indicator {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 400px;
-  margin: auto;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  span {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ccc;
+
+    &.active {
+      background: #007bff;
+    }
+  }
 }
 
-input[type="file"] {
-  border: 1px solid #ccc;
-  padding: 6px;
-}
-
-button {
-  padding: 8px 16px;
-  border: none;
-  background-color: #28a745;
-  color: white;
+.alert {
+  margin-bottom: 15px;
   font-weight: bold;
-  border-radius: 4px;
-  cursor: pointer;
+  animation: fadeIn 0.4s ease-in-out;
 }
 
-button[type="button"]:first-of-type {
-  background-color: #ccc;
-  color: black;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

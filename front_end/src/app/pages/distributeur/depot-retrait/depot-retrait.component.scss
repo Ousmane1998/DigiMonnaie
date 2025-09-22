@@ -1,46 +1,85 @@
 .transaction-container {
+  max-width: 500px;
+  margin: 30px auto;
   padding: 20px;
-  max-width: 400px;
-  margin: auto;
+  background: #f9faff;
+  border-radius: 12px;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.08);
+  font-family: 'Arial', sans-serif;
+  color: #111;
+}
 
-  h2 {
-    margin-bottom: 20px;
-    color: #2c3e50;
-  }
+.transaction-container h2 {
+  text-align: right;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #000;
+}
 
-  label {
-    display: block;
-    margin-top: 15px;
-    font-weight: 600;
-  }
+.transaction-container label {
+  display: block;
+  font-weight: bold;
+  margin: 15px 0 8px;
+  font-size: 16px;
+}
 
-  input, select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 1em;
-  }
+.transaction-container input,
+.transaction-container select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  font-size: 15px;
+  outline: none;
+  background: #fff;
+  transition: all 0.2s ease-in-out;
+}
 
-  button {
-    margin-top: 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
+.transaction-container input:focus,
+.transaction-container select:focus {
+  border-color: #333;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+}
 
-    &:hover {
-      background-color: #0056b3;
-    }
-  }
+.transaction-container button {
+  display: block;
+  width: 100%;
+  margin-top: 25px;
+  padding: 12px;
+  background: #111;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
 
-  .message {
+.transaction-container button:hover {
+  background: #333;
+}
+
+.transaction-container .message {
+  margin-top: 15px;
+  text-align: center;
+  color: red;
+  font-size: 14px;
+}
+
+/* Texte des frais */
+.transaction-container p {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.transaction-container p[ng-reflect-ng-if] {
+  color: red;
+  font-weight: 500;
+}
+ .message {
     margin-top: 15px;
     font-weight: 500;
     color: #27ae60;
   }
-}

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CompteService } from '../../../services/compte.service';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule} from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 interface CompteResponse {
   message: string;
@@ -11,7 +12,8 @@ interface CompteResponse {
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule// ✅ pour *ngIf, *ngFor, etc.
+    ReactiveFormsModule,
+    HttpClientModule// ✅ pour *ngIf, *ngFor, etc.
   ],
   templateUrl: './creer-compte.component.html',
   styleUrls: ['./creer-compte.component.scss']
@@ -19,8 +21,10 @@ interface CompteResponse {
 export class CreerCompteComponent {
   currentStep = 1;
   form: FormGroup;
+  message = '';
+  photoFile: File | null = null;
 
-  constructor(private fb: FormBuilder,private compteService: CompteService) {
+  constructor(private fb: FormBuilder,private compteService: CompteService, private http: HttpClient) {
     this.form = this.fb.group({
       nom: ['', Validators.required],
       prenom: ['', Validators.required],
@@ -29,37 +33,72 @@ export class CreerCompteComponent {
       telephone: ['', Validators.required],
       adresse: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      photo: [null],
       role: ['', Validators.required]
     });
   }
 
-  nextStep() {
-    if (this.currentStep < 3) this.currentStep++;
+  isStepValid(): boolean {
+  if (this.currentStep === 1) {
+    return this.form.get('nom')?.valid === true &&
+           this.form.get('prenom')?.valid === true &&
+           this.form.get('date_naissance')?.valid === true &&
+           this.form.get('carte_identite')?.valid === true;
   }
+
+  if (this.currentStep === 2) {
+    return this.form.get('telephone')?.valid === true &&
+           this.form.get('adresse')?.valid === true &&
+           this.form.get('email')?.valid === true &&
+           this.photoFile !== null;
+  }
+
+  if (this.currentStep === 3) {
+    return this.form.get('role')?.valid === true;
+  }
+
+  return false;
+}
+
+nextStep(): void {
+  if (!this.isStepValid()) {
+    this.message = '❌ Veuillez remplir tous les champs requis avant de continuer.';
+    return;
+  }
+
+  this.message = '';
+  if (this.currentStep < 3) {
+    this.currentStep++;
+  }
+}
+
 
   previousStep() {
     if (this.currentStep > 1) this.currentStep--;
   }
-onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.form.patchValue({ photo: input.files[0] });
-    }
+onFileSelected(event: any): void {
+    this.photoFile = event.target.files[0];
   }
-  onSubmit() {
-    if (this.form.valid) {
-      const formData = new FormData();
-       Object.entries(this.form.value).forEach(([key, value]) => {
+  onSubmit(): void {
+    if (this.form.invalid || !this.photoFile) {
+      this.message = '❌ Veuillez remplir tous les champs et ajouter une photo.';
+      return;
+    }
+
+    const formData = new FormData();
+    Object.entries(this.form.value).forEach(([key, value]) => {
       formData.append(key, value as string);
     });
-      console.log('✅ Données soumises :', this.form.value);
-     this.compteService.creerCompte(formData).subscribe({
-  next: (res) => console.log('✅ Compte créé', res),
-  error: (err) => console.error('❌ Erreur', err)
-});
+    formData.append('photo', this.photoFile);
 
-    }
-    
+    this.http.post('http://localhost:3000/api/creer-compte', formData).subscribe({
+      next: () => {
+        this.message = '✅ Compte créé avec succès. Un email vous a été envoyé.';
+        this.form.reset();
+        this.currentStep = 1;
+      },
+      error: (err) => {
+        this.message = `❌ Erreur : ${err.error?.error || 'Serveur indisponible'}`;
+      }
+    });
   }
 }

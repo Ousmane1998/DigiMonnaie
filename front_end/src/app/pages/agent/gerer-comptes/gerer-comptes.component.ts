@@ -15,6 +15,8 @@ export class GererComptesComponent implements OnInit {
   filtre: string = '';
   message: string = '';
   nouveauNom: string = '';
+  modalOuvert: boolean = false;
+  compteSelectionne: any = null;
 
   constructor(private http: HttpClient) {}
 
@@ -64,5 +66,38 @@ export class GererComptesComponent implements OnInit {
     this.ngOnInit();
   });
 }
+ ouvrirModal(compte: any): void {
+   console.log('🛠️ Modal ouvert pour :', compte);
+    this.compteSelectionne = { ...compte };
+    this.modalOuvert = true;
+  }
+
+  fermerModal(): void {
+    this.modalOuvert = false;
+    this.compteSelectionne = null;
+  }
+validerModification(): void {
+  if (!this.compteSelectionne || !this.compteSelectionne.nom.trim()) {
+    this.message = '❌ Le nom ne peut pas être vide.';
+    return;
+  }
+
+  this.http.put(`http://localhost:3000/api/comptes/modifier/${this.compteSelectionne.id}`, {
+    nom: this.compteSelectionne.nom
+  }, {
+    withCredentials: true
+  }).subscribe({
+    next: () => {
+      this.message = '✏️ Compte modifié avec succès.';
+      this.modalOuvert = false;
+      this.compteSelectionne = null;
+      this.ngOnInit(); // recharge la liste
+    },
+    error: err => {
+      this.message = `❌ Erreur modification : ${err.error?.error || err.message}`;
+    }
+  });
+}
+
 
 }

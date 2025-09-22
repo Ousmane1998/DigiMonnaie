@@ -1,6 +1,9 @@
 
 <section class="transfert-form">
   <h2>Transfert d'argent</h2>
+  <div *ngIf="message" [style.color]="message.includes('❌') ? 'red' : 'green'" class="alert">
+  {{ message }}
+</div>
 
   <form (ngSubmit)="envoyerTransfert()" [formGroup]="form">
     <label>Destinataire</label>

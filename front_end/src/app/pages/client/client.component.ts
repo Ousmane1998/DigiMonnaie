@@ -10,5 +10,6 @@ import { HeaderClientComponent } from '../../layout/header-client/header-client.
   styleUrl: './client.component.scss'
 })
 export class ClientComponent {
+  
 
 }

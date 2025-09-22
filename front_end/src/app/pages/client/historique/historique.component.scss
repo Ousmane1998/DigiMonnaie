@@ -1,55 +1,81 @@
 .historique-section {
-  padding: 1rem;
-  max-width: 600px;
-  margin: auto;
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f9faff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-family: Arial, sans-serif;
 }
 
+.historique-section h2 {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #111;
+}
+
+/* Message d’erreur */
+.erreur {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Une transaction */
 .transaction-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #f2f2f2;
-  padding: 0.8rem;
-  margin-bottom: 0.5rem;
-  border-radius: 6px;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 15px;
 }
 
+.transaction-card:last-child {
+  border-bottom: none;
+}
+
+/* Icône transaction */
 .tx-icon {
-  font-size: 1.5rem;
+  font-size: 20px;
+  margin-right: 10px;
 }
 
+/* Détails transaction */
 .tx-details {
-  flex-grow: 1;
-  margin-left: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .tx-type {
   font-weight: bold;
+  margin: 0;
 }
 
 .tx-date {
-  font-size: 0.85rem;
-  color: #666;
+  font-size: 13px;
+  color: #555;
+  margin: 0;
 }
 
+/* Montant aligné à droite */
 .tx-montant {
-  font-size: 1.1rem;
-  color: #333;
+  font-size: 15px;
+  font-weight: bold;
+  white-space: nowrap;
 }
 
-.dépôt {
-  border-left: 4px solid green;
+/* Couleurs selon type */
+.transaction-card.dépôt .tx-icon {
+  color: green;
 }
 
-.retrait {
-  border-left: 4px solid red;
-}
-
-.envoi {
-  border-left: 4px solid blue;
-}
-
-.erreur {
+.transaction-card.retrait .tx-icon {
   color: red;
-  text-align: center;
+}
+
+.transaction-card.envoi .tx-icon {
+  color: blue;
 }

@@ -22,12 +22,15 @@ import { ClientComponent } from './pages/client/client.component';
 import { DashboardComponent } from './pages/client/dashboard/dashboard.component';
 import { MonQrcodeComponent } from './mon-qrcode/mon-qrcode.component';
 import { ProfilComponent } from './pages/client/profil/profil.component';
-
+import { MotDePasseOublieComponent } from './mot-de-passe-oublie/mot-de-passe-oublie.component';  
+import { ReinitialiserMotDePasseComponent } from './pages/auth/reinitialiser-mot-de-passe/reinitialiser-mot-de-passe.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'activation/:numeroCompte', component: ActivationComponent },
+   { path: 'mot-de-passe-oublie', component: MotDePasseOublieComponent },
+   { path: 'reinitialiser-mot-de-passe', component: ReinitialiserMotDePasseComponent },
   {
     path: 'agent-dashboard',
     component: AgentComponent,

@@ -1,0 +1,17 @@
+<div class="reset-container">
+  <h2>🔐 Réinitialiser votre mot de passe</h2>
+
+  <form (ngSubmit)="valider()">
+    <label>Nouveau mot de passe</label>
+    <input [(ngModel)]="nouveauMotDePasse" name="motDePasse" type="password" required>
+
+    <label>Confirmer le mot de passe</label>
+    <input [(ngModel)]="confirmationMotDePasse" name="confirmation" type="password" required>
+
+    <div *ngIf="message" [style.color]="message.includes('❌') ? 'red' : 'green'">
+      {{ message }}
+    </div>
+
+    <button type="submit">Valider</button>
+  </form>
+</div>

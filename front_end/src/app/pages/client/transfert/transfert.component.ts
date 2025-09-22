@@ -3,12 +3,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { Validators } from '@angular/forms';
+
 
 
 @Component({
   selector: 'app-transfert',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './transfert.component.html',
   styleUrls: ['./transfert.component.scss']
 })
@@ -16,14 +19,15 @@ export class TransfertComponent {
   form: FormGroup;
   frais: number = 0;
   total: number = 0;
-
+  message: string = ''; // ✅ message à afficher
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.form = this.fb.group({
-      destinataire: [''],
-      montant: [0],
-     
+     destinataire: ['', [Validators.required]],
+  montant: [0, [Validators.required, Validators.min(1)]]
     });
+    
+
   }
 
   calculerFrais() {
@@ -33,21 +37,34 @@ export class TransfertComponent {
   }
 
   envoyerTransfert() {
+
+     if (this.form.invalid) {
+    this.message = '❌ Veuillez remplir tous les champs correctement.';
+    return;
+  }
     const data = {
       destinataire: this.form.value.destinataire,
       montant: this.form.value.montant,
       frais: this.frais,
     };
-const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
     this.http.post('http://localhost:3000/api/client/transfert', data, {
-  withCredentials: true
-}).subscribe({
-      next: res => console.log('Transfert réussi', res),
+      withCredentials: true,
+      headers
+    }).subscribe({
+      next: res => {
+        this.message = '✅ Transfert effectué avec succès.';
+        this.form.reset();
+        this.frais = 0;
+        this.total = 0;
+      },
       error: err => {
-    console.error('Erreur transfert', err);
-    alert('Erreur : ' + err.message);
-  }
+        this.message = `❌ Erreur : ${err.error?.error || 'Échec du transfert.'}`;
+      }
     });
   }
 }
+
 

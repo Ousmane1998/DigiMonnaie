@@ -1,8 +1,13 @@
-<p>creer-compte works!</p>
+<h2>Créer un compte</h2>
+
 <div class="step-indicator">
   <span [class.active]="currentStep === 1"></span>
   <span [class.active]="currentStep === 2"></span>
   <span [class.active]="currentStep === 3"></span>
+</div>
+
+<div *ngIf="message" [style.color]="message.includes('❌') ? 'red' : 'green'" class="alert">
+  {{ message }}
 </div>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">

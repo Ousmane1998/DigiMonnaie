@@ -59,6 +59,27 @@ router.post('/transfert', async (req, res) => {
       'UPDATE Compte SET solde = solde + ? WHERE id = ?',
       [montant, compteDestinataire.id]
     );
+// 6. Récupérer l’ID de la transaction
+const [txRows] = await promisePool.query(
+  'SELECT id FROM Transactions WHERE compte_id = ? AND utilisateur_id = ? ORDER BY id DESC LIMIT 1',
+  [compteDestinataire.id, utilisateurId]
+);
+const transactionId = txRows[0].id;
+
+// 7. Récupérer le solde actuel du client
+const [soldeRows] = await promisePool.query(
+  'SELECT solde FROM Compte WHERE id = ?',
+  [compteClient.id]
+);
+const soldeApres = soldeRows[0].solde;
+const soldeAvant = soldeApres + total;
+
+// 8. Insérer dans Historique
+await promisePool.query(
+  `INSERT INTO Historique (montant, solde_avant, solde_apres, compteID, utilisateurID, transactionID)
+   VALUES (?, ?, ?, ?, ?, ?)`,
+  [montant, soldeAvant, soldeApres, compteClient.id, utilisateurId, transactionId]
+);
 
     res.json({ success: true, message: 'Transfert effectué avec succès' });
   } catch (err) {

@@ -1,13 +1,11 @@
 .dashboard-container {
   padding: 20px;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f9f9f9;
-  min-height: 100vh;
+  font-family: Arial, sans-serif;
 
   h2 {
-    margin-bottom: 25px;
-    font-size: 1.8em;
-    color: #333;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: bold;
   }
 
   .metrics {
@@ -17,21 +15,21 @@
 
     .card {
       flex: 1;
-      background: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      background: #fff;
       padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       text-align: center;
 
       h3 {
-        font-size: 2.2em;
+        font-size: 22px;
         margin: 0;
-        color: #007bff;
+        color: #111;
       }
 
       p {
-        margin-top: 8px;
-        font-weight: 500;
+        margin-top: 5px;
+        font-size: 14px;
         color: #666;
       }
     }
@@ -40,40 +38,43 @@
   .transactions-section {
     background: #fff;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 
     h3 {
       margin-bottom: 15px;
-      font-size: 1.4em;
-      color: #333;
+      font-size: 18px;
+      font-weight: bold;
     }
 
     .filters {
       display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
       align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
 
-      input[type="date"],
-      select {
-        padding: 8px 12px;
+      label {
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      input,
+      select,
+      button {
+        padding: 6px 10px;
         border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 0.95em;
+        border-radius: 8px;
+        font-size: 14px;
       }
 
       button {
-        padding: 8px 16px;
-        background-color: #007bff;
+        background: #0f9d58; // vert moderne
         color: white;
         border: none;
-        border-radius: 6px;
         cursor: pointer;
-        transition: background-color 0.3s;
 
         &:hover {
-          background-color: #0056b3;
+          background: #0c7d46;
         }
       }
     }
@@ -83,30 +84,24 @@
       border-collapse: collapse;
 
       th, td {
-        padding: 12px;
-        border-bottom: 1px solid #eee;
         text-align: left;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
       }
 
       th {
-        background-color: #f0f0f0;
+        background: #f9f9f9;
         font-weight: 600;
-        color: #444;
+        font-size: 14px;
       }
 
       td {
-        color: #555;
+        font-size: 14px;
+        color: #333;
       }
 
-      tr:hover {
-        background-color: #f9f9f9;
-      }
-
-      button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 1.1em;
+      tr:hover td {
+        background: #fafafa;
       }
     }
   }
