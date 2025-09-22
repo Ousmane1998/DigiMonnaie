@@ -1,0 +1,18 @@
+<section class="qr-section">
+  <h2>📱 Mon QR Code</h2>
+
+  <div *ngIf="erreurQR">
+    <p class="erreur">❌ Impossible de générer le QR code.</p>
+  </div>
+
+  <div *ngIf="qrImage">
+    <img [src]="qrImage" alt="QR Code" class="qr-style" />
+    <p class="qr-data">Compte : {{ utilisateur?.numeroCompte }}</p>
+    <button (click)="telechargerQR()" class="btn-telecharger">📥 Télécharger</button>
+    <button (click)="fermer()" class="btn-fermer">❌ Fermer</button>
+  </div>
+
+  <div *ngIf="!qrImage && !erreurQR">
+    <p>⏳ Génération du QR code...</p>
+  </div>
+</section>

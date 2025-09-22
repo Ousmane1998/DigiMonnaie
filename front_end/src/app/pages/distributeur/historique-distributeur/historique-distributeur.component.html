@@ -1,1 +1,12 @@
-<p>historique-distributeur works!</p>
+<h2>Mon historique</h2>
+<div *ngIf="message" class="message">{{ message }}</div>
+
+<div *ngFor="let tx of historique" class="transaction-card">
+  <div class="heure">{{ tx.date_transaction | date:'HH:mm' }}</div>
+  <div class="type">{{ tx.type | titlecase }}</div>
+  <div class="client">Client : {{ tx.client_telephone }}</div>
+  <div class="montant">{{ tx.montant | number }} XOF</div>
+  <div class="commission">Commission : +{{ tx.frais | number }} XOF</div>
+  <button (click)="annuler(tx.numero_transaction)">Annuler</button>
+  <button>Reçu</button>
+</div>

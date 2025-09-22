@@ -22,8 +22,12 @@ export class LoginComponent {
  login() {
   this.http.post<any>('http://localhost:3000/api/agent/login', {
     email: this.email,
-    motDePasse: this.motDePasse
-  }).subscribe({
+    motDePasse: this.motDePasse,
+    },
+    {
+    withCredentials: true   // 🔑 c’est ici que ça doit être !
+  }
+  ).subscribe({
     next: res => {
       const utilisateur = res.utilisateur;
       const role = utilisateur.role;
@@ -43,8 +47,9 @@ export class LoginComponent {
             this.router.navigate(['/client-dashboard']);
             break;
           case 'distributeur':
-            this.router.navigate(['/distributeur-dashboard']);
-            break;
+            localStorage.setItem('distributeurId', utilisateur.id.toString());
+  this.router.navigate(['/distributeur-dashboard']);
+  break;
           default:
             this.message = '❌ Rôle inconnu. Accès refusé.';
         }

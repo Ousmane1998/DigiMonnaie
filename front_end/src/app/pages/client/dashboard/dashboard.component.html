@@ -1,0 +1,38 @@
+<section class="dashboard">
+  <div class="solde-section">
+    <div class="solde-header">
+      <span class="label">Solde disponible</span>
+      <span class="montant">
+        {{ soldeVisible ? utilisateur?.solde + ' XOF' : '••••••' }}
+      </span>
+      <button class="toggle-visibility" (click)="toggleSolde()">👁</button>
+    </div>
+
+    <div class="actions-principales">
+      <button class="action-btn">✈️ Transférer</button>
+      <button class="action-btn" (click)="toggleQR()">📱 Mon QR</button>
+    </div>
+  </div>
+
+  <div class="actions-rapides">
+    <h3>Actions rapides</h3>
+    <div class="quick-buttons">
+      <button class="quick-btn">✈️ Transférer</button>
+      <button class="quick-btn" (click)="allerVersQR()" (click)="toggleQR()">📱 Mon QR</button>
+      <button class="quick-btn">📄 Historique</button>
+      <button class="quick-btn" (click)="allerVersProfil()">👤 Profil</button>
+    </div>
+  </div>
+
+  <!-- Modal QR -->
+  <div class="qr-modal" *ngIf="showQR">
+    <div class="qr-content">
+      <h3>📱 Mon QR Code</h3>
+      <img [src]="qrImage" alt="QR Code" class="qr-style" />
+      <p>{{ utilisateur?.nom }} – {{ utilisateur?.role }}</p>
+      <p>Compte : {{ utilisateur?.numeroCompte }}</p>
+      <button (click)="telechargerQR()" class="btn-telecharger">📥 Télécharger</button>
+      <button (click)="toggleQR()" class="btn-fermer">❌ Fermer</button>
+    </div>
+  </div>
+</section>

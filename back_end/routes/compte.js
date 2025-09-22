@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db');
+const { pool, promisePool } = require('../config/db'); // ✅ correction
 const nodemailer = require('nodemailer');
-
 const multer = require('multer');
 const upload = multer();
+
 function generateNumeroCompte() {
   const prefix = 'DIGI';
   const timestamp = Date.now().toString().slice(-6);
@@ -12,7 +12,7 @@ function generateNumeroCompte() {
   return `${prefix}${timestamp}${random}`;
 }
 
-router.post('/creer-compte',upload.single('photo'), async (req, res) => {
+router.post('/creer-compte', upload.single('photo'), async (req, res) => {
   const {
     nom, prenom, date_naissance, carte_identite,
     telephone, adresse, email, role
@@ -22,62 +22,61 @@ router.post('/creer-compte',upload.single('photo'), async (req, res) => {
 
   try {
     // 1. Créer utilisateur
-    const [result] = await db.promise().query(`
-      INSERT INTO Utilisateurs (prenom, nom, adresse, email, telephone, date_naissance, carte_identite, role)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    const [result] = await promisePool.query( // ✅ utiliser promisePool
+      `INSERT INTO Utilisateurs 
+        (prenom, nom, adresse, email, telephone, date_naissance, carte_identite, role)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [prenom, nom, adresse, email, telephone, date_naissance, carte_identite, role]
     );
 
     const utilisateurId = result.insertId;
 
     // 2. Créer compte
-   await db.promise().query(`
-  INSERT INTO Compte (numeroCompte, solde, etat, type, utilisateur_id)
-  VALUES (?, ?, ?, ?, ?)`,
-  [numeroCompte, 0, 'active', role, utilisateurId]
-);
+    await promisePool.query(
+      `INSERT INTO Compte (numeroCompte, solde, etat, type, utilisateur_id)
+       VALUES (?, ?, ?, ?, ?)`,
+      [numeroCompte, 0, 'active', role, utilisateurId]
+    );
 
     // 3. Insérer dans Client ou Distributeur
     if (role === 'client') {
-      await db.promise().query(`INSERT INTO Client (id) VALUES (?)`, [utilisateurId]);
+      await promisePool.query(`INSERT INTO Client (id) VALUES (?)`, [utilisateurId]);
     } else if (role === 'distributeur') {
-      await db.promise().query(`INSERT INTO Distributeur (id) VALUES (?)`, [utilisateurId]);
+      await promisePool.query(`INSERT INTO Distributeur (id) VALUES (?)`, [utilisateurId]);
     }
 
     // 4. Envoyer email
-    const nodemailer = require('nodemailer');
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: "papeousmanefaye011@gmail.com",     // ✅ ton identifiant Mailtrap
-    pass: "scke jztp wufa ybli"      // ✅ ton mot de passe Mailtrap
-  }
-});
-
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: "papeousmanefaye011@gmail.com",
+        pass: "scke jztp wufa ybli" // ⚠️ pense à utiliser une variable d’environnement (process.env.GMAIL_PASS)
+      }
+    });
 
     const mailOptions = {
- from: '"DigiMonnaie" <no-reply@digimonnaie.com>',
-  to: email, // ✅ adresse saisie par l’utilisateur
-  subject: 'Activation de votre compte Digimonnaie',
-  html: `
-    <h2>Bienvenue sur DigiMonnaie</h2>
-    <p>Bonjour ${prenom},</p>
-    <p>Votre numéro de compte est : <strong>${numeroCompte}</strong></p>
-    <p>Veuillez cliquer sur le lien ci-dessous pour créer votre mot de passe :</p>
-    <a href="http://localhost:4200/activation/${numeroCompte}" style="padding:10px 20px; background:#007bff; color:#fff; text-decoration:none; border-radius:5px;">Créer mon mot de passe</a>
-  `
-};
+      from: '"DigiMonnaie" <no-reply@digimonnaie.com>',
+      to: email,
+      subject: 'Activation de votre compte Digimonnaie',
+      html: `
+        <h2>Bienvenue sur DigiMonnaie</h2>
+        <p>Bonjour ${prenom},</p>
+        <p>Votre numéro de compte est : <strong>${numeroCompte}</strong></p>
+        <p>Veuillez cliquer sur le lien ci-dessous pour créer votre mot de passe :</p>
+        <a href="http://localhost:4200/activation/${numeroCompte}" 
+           style="padding:10px 20px; background:#007bff; color:#fff; text-decoration:none; border-radius:5px;">
+           Créer mon mot de passe
+        </a>
+      `
+    };
 
-await transporter.sendMail(mailOptions);
-
-  
+    await transporter.sendMail(mailOptions);
 
     res.status(200).json({ message: 'Compte créé et email envoyé' });
   } catch (err) {
-  console.error('❌ Erreur serveur :', err);
-  res.status(500).json({ error: 'Erreur serveur', details: err.message });
-}
+    console.error('❌ Erreur serveur :', err);
+    res.status(500).json({ error: 'Erreur serveur', details: err.message });
+  }
 });
 
 module.exports = router;

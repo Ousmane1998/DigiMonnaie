@@ -1,1 +1,31 @@
-<p>tableau-de-bord works!</p>
+<div class="dashboard-container">
+  <h2>📊 Tableau de bord Distributeur</h2>
+
+  <div class="metrics">
+    <div class="card solde">
+      <h3>💰 Solde</h3>
+      <p>{{ solde | number:'1.0-0' }} XOF</p>
+    </div>
+    <div class="card commission">
+      <h3>📈 Commission du jour</h3>
+      <p>{{ commissionDuJour | number:'1.0-0' }} XOF</p>
+    </div>
+    <div class="card transactions">
+      <h3>🔄 Transactions aujourd’hui</h3>
+      <p>{{ transactionsDuJour }}</p>
+    </div>
+  </div>
+
+  <h3>⚡ Actions rapides</h3>
+  <div class="actions">
+    <a routerLink="/distributeur-dashboard/depot-retrait" class="action-btn">
+      <i class="fas fa-arrow-down"></i> Dépôt
+    </a>
+    <a routerLink="/distributeur-dashboard/depot-retrait" class="action-btn">
+      <i class="fas fa-arrow-up"></i> Retrait
+    </a>
+    <a routerLink="/distributeur-dashboard/historique-distributeur" class="action-btn">
+      <i class="fas fa-history"></i> Historique
+    </a>
+  </div>
+</div>

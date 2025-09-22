@@ -25,7 +25,9 @@ transactionsFiltrées: any[] = [];
 
   ngOnInit(): void {
     const agentId = localStorage.getItem('utilisateurId');
-    this.http.get<any>(`http://localhost:3000/api/agent/dashboard/${agentId}`)
+    this.http.get<any>(`http://localhost:3000/api/agent/dashboard/${agentId}` 
+      , { withCredentials: true }
+    )
       .subscribe({
         next: res => {
           this.clients = res.clients;

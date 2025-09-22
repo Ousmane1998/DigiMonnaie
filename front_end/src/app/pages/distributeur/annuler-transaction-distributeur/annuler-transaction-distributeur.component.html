@@ -1,1 +1,13 @@
-<p>annuler-transaction-distributeur works!</p>
+<div class="annuler-container">
+  <h2>Annuler une transaction</h2>
+
+  <label for="numero">N° de transaction</label>
+  <input id="numero" [(ngModel)]="numeroTransaction" placeholder="Ex : TXN123456" />
+
+  <label for="motif">Motif d’annulation</label>
+  <textarea id="motif" [(ngModel)]="motif" placeholder="Erreur de saisie, client incorrect…"></textarea>
+
+  <button (click)="annulerTransaction()">Annuler la transaction</button>
+
+  <p class="message">{{ message }}</p>
+</div>

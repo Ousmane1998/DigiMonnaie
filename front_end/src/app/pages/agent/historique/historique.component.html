@@ -1,30 +1,47 @@
-<div class="historique-container">
-  <h2>Historique des transactions</h2>
+<h2>📄 Historique des transactions</h2>
 
-  <div class="filters">
-    <input type="date" />
-  </div>
+<input type="text" [(ngModel)]="filtreDate" placeholder="🔍 Filtrer par date (jj/mm/aaaa)" />
 
-  <table>
-    <thead>
-      <tr>
-        <th>DateType</th>
-        <th>Émetteur</th>
-        <th>Bénéficiaire</th>
-        <th>Montant</th>
-        <th>Statut</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let tx of historiques">
-        <td>{{ tx.dateType }}</td>
-        <td>{{ tx.emetteur }}</td>
-        <td>{{ tx.beneficiaire }}</td>
-        <td>+{{ tx.montant | currency:'XOF' }}</td>
-        <td>{{ tx.statut === 'Réussi' ? '✅' : '⏳' }}</td>
-        <td><button class="annuler">Annuler</button></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<div *ngIf="message" class="message">{{ message }}</div>
+<p *ngIf="transactionsFiltres.length === 0">Aucune transaction trouvée</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Utilisateur</th>
+      <th>Rôle</th>
+      <th>Compte</th>
+      <th>Montant</th>
+      <th>Frais</th>
+      <th>Statut</th>
+      <th>Annulé par</th>
+      <th>Motif</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let t of transactionsFiltres">
+      <td>{{ t.date_transaction | date:'dd/MM/yyyy HH:mm' }}</td>
+      <td>{{ t.type }}</td>
+      <td>{{ t.utilisateur }}</td>
+      <td>{{ t.role_utilisateur }}</td>
+      <td>{{ t.compte }}</td>
+      <td>{{ t.montant | currency:'XOF':'symbol':'1.0-0' }}</td>
+      <td>{{ t.frais | currency:'XOF':'symbol':'1.0-0' }}</td>
+      <td>
+        <span *ngIf="t.statut === 'valide'">✅</span>
+        <span *ngIf="t.statut === 'annuler'">❌</span>
+        <span *ngIf="t.statut === 'en_attente'">⏳</span>
+      </td>
+      <td>{{ t.annule_par || '—' }}</td>
+      <td>{{ t.motif_annulation || '—' }}</td>
+      <td>
+        <button *ngIf="t.statut === 'valide'" (click)="annuler(t.id)" class="annuler-btn">Annuler</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="transactionsFiltres.length > 0" class="total">
+  Total des transactions affichées : {{ transactionsFiltres.length }}</div>

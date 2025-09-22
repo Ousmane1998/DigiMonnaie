@@ -15,6 +15,11 @@ import { CreerCompteComponent } from './pages/agent/creer-compte/creer-compte.co
 import { HistoriqueComponent } from './pages/agent/historique/historique.component';
 import { AnnulerTransactionComponent } from './pages/agent/annuler-transaction/annuler-transaction.component';
 import { ActivationComponent } from './pages/activation/activation.component';
+import { MonQrcodeComponent } from './mon-qrcode/mon-qrcode.component';
+import { ProfilComponent } from './pages/client/profil/profil.component';
+import { ClientComponent } from './pages/client/client.component';
+import { DashboardComponent } from './pages/client/dashboard/dashboard.component';
+import { GererComptesComponent } from './pages/agent/gerer-comptes/gerer-comptes.component';
 
 
 @NgModule({
@@ -29,6 +34,11 @@ import { ActivationComponent } from './pages/activation/activation.component';
     HistoriqueComponent,
     AnnulerTransactionComponent,
     ActivationComponent,
+    MonQrcodeComponent, 
+    ProfilComponent,
+    ClientComponent,
+    DashboardComponent,
+    GererComptesComponent 
   ],
   imports: [
     CommonModule,

@@ -12,33 +12,57 @@ import { FormsModule } from '@angular/forms';
 })
 export class GererComptesComponent implements OnInit {
   comptes: any[] = [];
-  message = '';
+  filtre: string = '';
+  message: string = '';
+  nouveauNom: string = '';
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<any>('http://localhost:3000/api/comptes')
-      .subscribe({
-        next: res => this.comptes = res.comptes,
-        error: err => console.error('Erreur chargement comptes :', err)
-      });
+    this.http.get<any>('http://localhost:3000/api/comptes', {
+      withCredentials: true
+    }).subscribe({
+      next: res => this.comptes = res.comptes,
+      error: err => console.error('Erreur chargement comptes :', err)
+    });
+  }
+
+  get comptesFiltres(): any[] {
+    return this.comptes.filter(c =>
+      (c.nom + ' ' + c.numero_compte)
+        .toLowerCase()
+        .includes(this.filtre.toLowerCase())
+    );
   }
 
   supprimer(id: number): void {
-    this.http.delete(`http://localhost:3000/api/comptes/${id}`)
-      .subscribe(() => {
-        this.message = 'Compte supprimé';
-        this.comptes = this.comptes.filter(c => c.id !== id);
-      });
+    this.http.delete(`http://localhost:3000/api/comptes/${id}`, {
+      withCredentials: true
+    }).subscribe(() => {
+      this.message = '🗑️ Compte supprimé';
+      this.comptes = this.comptes.filter(c => c.id !== id);
+    });
   }
 
   bloquer(id: number): void {
-    this.http.put(`http://localhost:3000/api/comptes/bloquer/${id}`, {})
-      .subscribe(() => this.message = ' Compte bloqué');
+    this.http.put(`http://localhost:3000/api/comptes/bloquer/${id}`, {}, {
+      withCredentials: true
+    }).subscribe(() => {
+      this.message = '🚫 Compte bloqué';
+      this.ngOnInit();
+    });
   }
 
-  modifier(id: number, nouveauNom: string): void {
-    this.http.put(`http://localhost:3000/api/comptes/modifier/${id}`, { nom: nouveauNom })
-      .subscribe(() => this.message = ' Compte modifié');
-  }
+ modifier(id: number, nouveauNom: string): void {
+  if (!nouveauNom.trim()) return;
+  this.http.put(`http://localhost:3000/api/comptes/modifier/${id}`, {
+    nom: nouveauNom
+  }, {
+    withCredentials: true
+  }).subscribe(() => {
+    this.message = '✏️ Compte modifié';
+    this.ngOnInit();
+  });
+}
+
 }

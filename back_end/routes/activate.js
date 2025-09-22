@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const db = require('../config/db'); // ou ton fichier de connexion MySQL
+const { pool, promisePool } = require('../config/db');  // ✅
 
 router.post('/activation/:numeroCompte', async (req, res) => {
   try {
@@ -13,7 +13,7 @@ router.post('/activation/:numeroCompte', async (req, res) => {
     }
 
     // 🔍 Trouver l'utilisateur lié au compte
-    const [rows] = await db.promise().query(
+    const [rows] = await promisePool.query(
       `SELECT u.id FROM Utilisateurs u
        JOIN Compte c ON u.id = c.utilisateur_id
        WHERE c.numeroCompte = ?`,
@@ -27,8 +27,8 @@ router.post('/activation/:numeroCompte', async (req, res) => {
     const utilisateurId = rows[0].id;
     const hash = await bcrypt.hash(mot_de_passe, 10);
 
-    // 🔐 Mettre à jour le mot de passe dans Utilisateurs
-    await db.promise().query(
+    // 🔐 Mettre à jour le mot de passe
+    await promisePool.query(
       'UPDATE Utilisateurs SET mot_de_passe = ? WHERE id = ?',
       [hash, utilisateurId]
     );
@@ -39,7 +39,5 @@ router.post('/activation/:numeroCompte', async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur lors de l’activation' });
   }
 });
-
-
 
 module.exports = router;

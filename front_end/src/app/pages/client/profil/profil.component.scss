@@ -1,0 +1,69 @@
+.profil-section {
+  padding: 1.5rem;
+  max-width: 500px;
+  margin: auto;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.profil-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.profil-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.profil-info h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.profil-details p {
+  margin: 0.5rem 0;
+}
+
+.qr-section {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.qr-style {
+  width: 180px;
+  height: 180px;
+  margin: 1rem auto;
+  display: block;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.btn-telecharger {
+  background-color: #007bff;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-deconnexion {
+  margin-top: 2rem;
+  background-color: #28a745;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.erreur {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}

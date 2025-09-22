@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db');
+const { pool, promisePool } = require('../config/db');
 
-
+// Liste des comptes
 router.get('/', async (req, res) => {
   try {
-    const [comptes] = await db.promise().query(
-      `SELECT u.nom, c.numero_compte, c.id
+    const [comptes] = await promisePool.query(
+      `SELECT u.nom, c.numeroCompte, c.id, c.etat
        FROM Compte c
        JOIN Utilisateurs u ON c.utilisateur_id = u.id`
     );
@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 // Supprimer un compte
 router.delete('/:id', async (req, res) => {
   try {
-    await db.promise().query('DELETE FROM Compte WHERE id = ?', [req.params.id]);
+    await promisePool.query('DELETE FROM Compte WHERE id = ?', [req.params.id]);
     res.json({ success: true, message: 'Compte supprimé' });
   } catch (err) {
     res.status(500).json({ error: 'Erreur suppression' });
@@ -30,18 +30,18 @@ router.delete('/:id', async (req, res) => {
 // Bloquer un compte
 router.put('/bloquer/:id', async (req, res) => {
   try {
-    await db.promise().query('UPDATE Compte SET statut = "bloqué" WHERE id = ?', [req.params.id]);
+    await promisePool.query('UPDATE Compte SET etat = "bloqué" WHERE id = ?', [req.params.id]);
     res.json({ success: true, message: 'Compte bloqué' });
   } catch (err) {
     res.status(500).json({ error: 'Erreur blocage' });
   }
 });
 
-// Modifier un compte (exemple : changer nom)
+// Modifier un compte
 router.put('/modifier/:id', async (req, res) => {
   const { nom } = req.body;
   try {
-    await db.promise().query(
+    await promisePool.query(
       `UPDATE Utilisateurs 
        SET nom = ? 
        WHERE id = (SELECT utilisateur_id FROM Compte WHERE id = ?)`,

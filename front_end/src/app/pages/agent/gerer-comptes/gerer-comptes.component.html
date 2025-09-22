@@ -1,6 +1,7 @@
 <p>gerer-comptes works!</p>
 <div class="comptes-container">
   <h2>Gestion des comptes</h2>
+  <input type="text" [(ngModel)]="filtre" placeholder="🔍 Rechercher par nom ou numéro..." />
   <p class="message">{{ message }}</p>
 
   <table>
@@ -17,9 +18,10 @@
       <tr *ngFor="let compte of comptes">
         <td>{{ compte.nom }}</td>
         <td>{{ compte.numero_compte }}</td>
+        <td>{{ compte.etat }}</td>
         <td>
           <input [(ngModel)]="compte.nom" />
-          <button (click)="modifier(compte.id, compte.nom)">✏️</button>
+          <button (click)="modifier(compte.id, compte.nouveauNom)">✏️</button>
         </td>
         <td><button (click)="bloquer(compte.id)">🚫</button></td>
         <td><button (click)="supprimer(compte.id)" class="danger">🗑️</button></td>

@@ -18,6 +18,10 @@ import { TableauDeBordComponent } from './pages/distributeur/tableau-de-bord/tab
 import { DepotRetraitComponent } from './pages/distributeur/depot-retrait/depot-retrait.component';
 import { HistoriqueDistributeurComponent } from './pages/distributeur/historique-distributeur/historique-distributeur.component';
 import { AnnulerTransactionDistributeurComponent } from './pages/distributeur/annuler-transaction-distributeur/annuler-transaction-distributeur.component';
+import { ClientComponent } from './pages/client/client.component';
+import { DashboardComponent } from './pages/client/dashboard/dashboard.component';
+import { MonQrcodeComponent } from './mon-qrcode/mon-qrcode.component';
+import { ProfilComponent } from './pages/client/profil/profil.component';
 
 
 export const routes: Routes = [
@@ -48,6 +52,41 @@ export const routes: Routes = [
       { path: 'annuler-transaction-distributeur', component: AnnulerTransactionDistributeurComponent }
     ]
   },
+ 
+  {
+    path: 'client-dashboard',
+    component: ClientComponent,
+    children: [
+       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
+      {
+        path: 'dashboard',
+        component: DashboardComponent // ✅ accessible via /client-dashboard/dashboard
+      },
+      {
+        path: 'transfert',
+        loadComponent: () =>
+          import('./pages/client/transfert/transfert.component').then(m => m.TransfertComponent)
+      },
+      {
+        path: 'historique',
+        loadComponent: () =>
+          import('./pages/client/historique/historique.component').then(m => m.HistoriqueComponent)
+      },
+      
+      {
+        path: 'profil',
+        loadComponent: () =>
+          import('./pages/client/profil/profil.component').then(m => m.ProfilComponent)
+      },
+      {
+  path: 'mon-qrcode',
+  loadComponent: () =>
+    import('./mon-qrcode/mon-qrcode.component').then(m => m.MonQrcodeComponent)
+}
+       ]
+  },
+  
+ 
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 
