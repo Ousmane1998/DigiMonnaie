@@ -9,11 +9,14 @@ import { DashboardAgentComponent } from './pages/agent/dashboard-agent/dashboard
 import { CreerCompteComponent } from './pages/agent/creer-compte/creer-compte.component';
 import { HistoriqueComponent } from './pages/agent/historique/historique.component';
 import { AnnulerTransactionComponent } from './pages/agent/annuler-transaction/annuler-transaction.component';
+import { ActivationComponent } from './pages/activation/activation.component';
+
 
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'activation/:numeroCompte', component: ActivationComponent },
   {
     path: 'agent-dashboard',
     component: AgentComponent,
@@ -22,8 +25,8 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardAgentComponent },
       { path: 'creer-compte', component: CreerCompteComponent },
       { path: 'historique', component: HistoriqueComponent },
-      { path: 'annuler-transaction', component: AnnulerTransactionComponent },
-      
+      { path: 'annuler-transaction', component: AnnulerTransactionComponent }
+       
     ]
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' }

@@ -1,1 +1,35 @@
 <p>creer-compte works!</p>
+<div class="step-indicator">
+  <span [class.active]="currentStep === 1"></span>
+  <span [class.active]="currentStep === 2"></span>
+  <span [class.active]="currentStep === 3"></span>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- Étape 1 -->
+  <div *ngIf="currentStep === 1">
+    <input formControlName="nom" placeholder="Nom" />
+    <input formControlName="prenom" placeholder="Prénom" />
+    <input formControlName="date_naissance" type="date" />
+    <input formControlName="carte_identite" placeholder="N° Carte d'identité" />
+    <button type="button" (click)="nextStep()">Suivant</button>
+  </div>
+
+  <!-- Étape 2 -->
+  <div *ngIf="currentStep === 2">
+    <input type="file" (change)="onFileSelected($event)" />
+    <input formControlName="telephone" placeholder="Téléphone" />
+    <input formControlName="adresse" placeholder="Adresse" />
+    <input formControlName="email" placeholder="Email" type="email" />
+    <button type="button" (click)="previousStep()">Précédent</button>
+    <button type="button" (click)="nextStep()">Suivant</button>
+  </div>
+
+  <!-- Étape 3 -->
+  <div *ngIf="currentStep === 3">
+    <label><input type="radio" formControlName="role" value="client" /> Client</label>
+    <label><input type="radio" formControlName="role" value="distributeur" /> Distributeur</label>
+    <button type="button" (click)="previousStep()">Précédent</button>
+    <button type="submit">Créer Compte</button>
+  </div>
+</form>
