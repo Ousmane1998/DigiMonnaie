@@ -1,1 +1,32 @@
-<p>profil works!</p>
+<section class="profil-section">
+  <div class="profil-header">
+    <img src="assets/images/user-placeholder.png" alt="Photo de profil" class="profil-photo" />
+    <div class="profil-info">
+      <h2>{{ utilisateur?.nom || 'Prénom Nom' }}</h2>
+      <p>ID : {{ utilisateur?.id || 'N2250123456' }}</p>
+    </div>
+  </div>
+
+  <div class="profil-details">
+    <p><strong>Téléphone :</strong> {{ utilisateur?.telephone || '+221 07 07 07 07' }}</p>
+    <p><strong>Email :</strong> {{ utilisateur?.email || 'example@email.com' }}</p>
+    <p><strong>Adresse :</strong> {{ utilisateur?.adresse || 'Dakar, Sénégal' }}</p>
+    <p><strong>Numéro de Compte :</strong> {{ utilisateur?.numeroCompte || 'N2250123456' }}</p>
+  </div>
+
+  <div class="qr-section" *ngIf="qrImage">
+    <h3>📱 Mon QR Code</h3>
+    <img [src]="qrImage" alt="QR Code" class="qr-style" />
+    <button (click)="telechargerQR()" class="btn-telecharger">📥 Télécharger</button>
+  </div>
+
+  <div *ngIf="!qrImage && !erreurQR">
+    <p>⏳ Génération du QR code...</p>
+  </div>
+
+  <div *ngIf="erreurQR">
+    <p class="erreur">❌ Impossible de générer le QR code.</p>
+  </div>
+
+  <button class="btn-deconnexion">Déconnexion</button>
+</section>

@@ -1,0 +1,46 @@
+.annuler-container {
+  padding: 20px;
+  max-width: 500px;
+  margin: auto;
+
+  h2 {
+    margin-bottom: 20px;
+    color: #c0392b;
+  }
+
+  label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+  }
+
+  .annuler-btn {
+    margin-top: 20px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+
+    &:hover {
+      background-color: #c0392b;
+    }
+  }
+
+  .message {
+    margin-top: 15px;
+    font-weight: 500;
+    color: #2c3e50;
+  }
+}

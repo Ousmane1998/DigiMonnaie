@@ -1,1 +1,28 @@
+<<<<<<< HEAD
 <p>transfert works!</p>
+=======
+
+<section class="transfert-form">
+  <h2>Transfert d'argent</h2>
+
+  <form (ngSubmit)="envoyerTransfert()" [formGroup]="form">
+    <label>Destinataire</label>
+    <input formControlName="destinataire" placeholder="N° compte ou téléphone" />
+
+    <label>Montant (XOF)</label>
+    <input formControlName="montant" type="number" (input)="calculerFrais()" />
+
+    <p>Frais : {{ frais }} XOF – Total à payer : {{ total }} XOF</p>
+
+    <div class="resume">
+      <p>Destinataire : {{ form.value.destinataire || '-' }}</p>
+      <p>Montant : {{ form.value.montant || 0 }} XOF</p>
+      <p>Frais : {{ frais }} XOF</p>
+      <p>Total : {{ total }} XOF</p>
+    </div>
+
+
+    <button type="submit" class="btn-envoyer">ENVOI</button>
+  </form>
+</section>
+>>>>>>> e325d82bec718a82e70079656995b427a6e402a3

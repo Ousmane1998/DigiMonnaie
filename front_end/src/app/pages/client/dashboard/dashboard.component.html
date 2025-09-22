@@ -1,25 +1,38 @@
-<app-header-client></app-header-client>
-<div class="container-fluid py-4 bg-light">
-  <!-- Solde -->
-  <div class="card bg-success text-white text-center p-4 mb-4">
-    <h6>Solde disponible</h6>
-    <h3>125 000 XOF</h3>
+<section class="dashboard">
+  <div class="solde-section">
+    <div class="solde-header">
+      <span class="label">Solde disponible</span>
+      <span class="montant">
+        {{ soldeVisible ? utilisateur?.solde + ' XOF' : '••••••' }}
+      </span>
+      <button class="toggle-visibility" (click)="toggleSolde()">👁</button>
+    </div>
+
+    <div class="actions-principales">
+      <button class="action-btn">✈️ Transférer</button>
+      <button class="action-btn" (click)="toggleQR()">📱 Mon QR</button>
+    </div>
   </div>
 
-  <!-- Actions rapides -->
-  <h6 class="fw-bold mb-3">Actions rapides</h6>
-  <div class="d-flex justify-content-between flex-wrap gap-2">
-    <button class="btn btn-outline-dark flex-fill d-flex align-items-center justify-content-center">
-      <i class="bi bi-send me-2"></i> Transférer
-    </button>
-    <button class="btn btn-outline-dark flex-fill d-flex align-items-center justify-content-center">
-      <i class="bi bi-qr-code me-2"></i> Mon QR
-    </button>
-    <button class="btn btn-outline-dark flex-fill d-flex align-items-center justify-content-center">
-      <i class="bi bi-list me-2"></i> Historique
-    </button>
-    <button class="btn btn-outline-dark flex-fill d-flex align-items-center justify-content-center">
-      <i class="bi bi-person me-2"></i> Profil
-    </button>
+  <div class="actions-rapides">
+    <h3>Actions rapides</h3>
+    <div class="quick-buttons">
+      <button class="quick-btn">✈️ Transférer</button>
+      <button class="quick-btn" (click)="allerVersQR()" (click)="toggleQR()">📱 Mon QR</button>
+      <button class="quick-btn">📄 Historique</button>
+      <button class="quick-btn" (click)="allerVersProfil()">👤 Profil</button>
+    </div>
   </div>
-</div>
+
+  <!-- Modal QR -->
+  <div class="qr-modal" *ngIf="showQR">
+    <div class="qr-content">
+      <h3>📱 Mon QR Code</h3>
+      <img [src]="qrImage" alt="QR Code" class="qr-style" />
+      <p>{{ utilisateur?.nom }} – {{ utilisateur?.role }}</p>
+      <p>Compte : {{ utilisateur?.numeroCompte }}</p>
+      <button (click)="telechargerQR()" class="btn-telecharger">📥 Télécharger</button>
+      <button (click)="toggleQR()" class="btn-fermer">❌ Fermer</button>
+    </div>
+  </div>
+</section>
