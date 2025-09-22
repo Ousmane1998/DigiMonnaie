@@ -12,4 +12,11 @@ export class TransactionService {
     withCredentials: true
   });
 }
+
+getHistoriqueClient() {
+  return this.http.get<any>('http://localhost:3000/api/utilisateur/historique-client', {
+    withCredentials: true
+  });
+}
+
 }

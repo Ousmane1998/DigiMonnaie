@@ -10,5 +10,6 @@ import {FooterClientComponent} from '../../layout/footer-client/footer-client.co
   styleUrl: './client.component.scss'
 })
 export class ClientComponent {
+  
 
 }

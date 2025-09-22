@@ -56,4 +56,8 @@ export class ProfilComponent implements OnInit {
     a.download = `qr-${this.utilisateur.role}-${this.utilisateur.id}.png`;
     a.click();
   }
+   deconnexion(): void {
+    localStorage.clear(); // ou removeItem('utilisateurId'), etc.
+    this.router.navigate(['/login']);
+  }
 }

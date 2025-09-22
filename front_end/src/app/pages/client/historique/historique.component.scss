@@ -43,11 +43,17 @@
   border-bottom: none;
 }
 
+.transaction-card:last-child {
+  border-bottom: none;
+}
+
+/* Icône transaction */
 .tx-icon {
   font-size: 1.3rem;
   margin-right: 0.8rem;
 }
 
+/* Détails transaction */
 .tx-details {
   flex: 1;
 }

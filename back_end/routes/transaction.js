@@ -55,6 +55,19 @@ const { pool, promisePool } = require('../config/db');
       [utilisateurId, motif, numeroTransaction]
     );
 
+    
+await promisePool.query(
+  `INSERT INTO Historique (montant, solde_avant, solde_apres, compteID, utilisateurID, transactionID)
+   VALUES (?, ?, ?, ?, ?, ?)`,
+  [
+    transaction.montant,
+    null, // ou calculer soldeAvant si tu veux
+    null, // ou récupérer soldeApres si tu veux
+    transaction.compte_id,
+    utilisateurId,
+    transaction.id
+  ]
+);
     res.json({ success: true, message: '✅ Transaction annulée avec succès' });
   } catch (err) {
     console.error('❌ Erreur annulation :', err);
@@ -106,7 +119,7 @@ router.post('/depot-retrait', async (req, res) => {
       await conn.query(
   `INSERT INTO Transactions (numero_transaction, type, montant, frais, compte_id, utilisateur_id, statut)
    VALUES (?, ?, ?, ?, ?, ?, ?)`,
-  [numeroTransaction, type, montant, frais, destinataireId, distributeurUtilisateurId, 'en_attente']
+  [numeroTransaction, type, montant, frais, destinataireId, distributeurUtilisateurId, 'valide']
 );
 
 
@@ -119,6 +132,33 @@ router.post('/depot-retrait', async (req, res) => {
         await conn.query(`UPDATE Compte SET solde = solde + ? WHERE id = ?`, [commission, distributeurCompteId]);
         await conn.query(`UPDATE Distributeur SET commission = commission + ? WHERE id = ?`, [commission, distributeurUtilisateurId]);
       }
+
+// 1. Récupérer l’ID de la transaction
+const [txRows] = await conn.query(
+  'SELECT id FROM Transactions WHERE numero_transaction = ?',
+  [numeroTransaction]
+);
+const transactionId = txRows[0].id;
+
+// 2. Récupérer le solde actuel du compte destinataire
+const [soldeRows] = await conn.query(
+  'SELECT solde FROM Compte WHERE id = ?',
+  [destinataireId]
+);
+const soldeApres = soldeRows[0].solde;
+
+// 3. Calculer le solde avant
+const soldeAvant = type === 'depot'
+  ? soldeApres - montant
+  : soldeApres + montant + frais;
+
+// 4. Insérer dans Historique
+await conn.query(
+  `INSERT INTO Historique (montant, solde_avant, solde_apres, compteID, utilisateurID, transactionID)
+   VALUES (?, ?, ?, ?, ?, ?)`,
+  [montant, soldeAvant, soldeApres, destinataireId, distributeurUtilisateurId, transactionId]
+);
+
 
       await conn.commit();
       conn.release();
@@ -169,6 +209,40 @@ console.log('📡 Session userId:', utilisateurId);
   }
 });
 
+router.get('/historique-client', async (req, res) => {
+  const utilisateurId = req.session?.userId;
+  console.log('📡 Session client ID:', utilisateurId);
+
+  if (!utilisateurId) {
+    return res.status(401).json({ error: 'Utilisateur non connecté' });
+  }
+const [compteRows] = await promisePool.query(
+  'SELECT numeroCompte FROM Compte WHERE utilisateur_id = ? AND type = "client"',
+  [utilisateurId]
+);
+
+if (!compteRows.length) {
+  return res.status(404).json({ error: 'Compte client introuvable' });
+}
+
+const numeroCompte = compteRows[0].numeroCompte;
+  try {
+    const [rows] = await promisePool.query(
+     `SELECT H.id, H.dateHeure AS dateTransaction, H.montant, T.type, T.numero_transaction
+   FROM Historique H
+   JOIN Transactions T ON H.transactionID = T.id
+   JOIN Compte C ON H.compteID = C.id
+   WHERE C.numeroCompte = ?
+   ORDER BY H.dateHeure DESC`,
+  [numeroCompte]
+    );
+
+    res.json({ success: true, transactions: rows });
+  } catch (err) {
+    console.error('❌ Erreur historique client :', err);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
 
 module.exports = router;
 

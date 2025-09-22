@@ -1,0 +1,74 @@
+.annuler-container {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #f9faff;
+  border-radius: 12px;
+  box-shadow: 0px 3px 8px rgba(0,0,0,0.08);
+  font-family: 'Arial', sans-serif;
+  color: #111;
+}
+
+.annuler-container h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.annuler-container label {
+  display: block;
+  font-weight: 600;
+  margin: 15px 0 8px;
+  font-size: 15px;
+}
+
+.annuler-container input,
+.annuler-container textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  font-size: 15px;
+  outline: none;
+  background: #fff;
+  transition: all 0.2s ease-in-out;
+}
+
+.annuler-container textarea {
+  min-height: 70px;
+  border-radius: 15px;
+  resize: none;
+}
+
+.annuler-container input:focus,
+.annuler-container textarea:focus {
+  border-color: #333;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+}
+
+.annuler-container button {
+  display: block;
+  width: 100%;
+  margin-top: 25px;
+  padding: 14px;
+  background: #f30000;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.annuler-container button:hover {
+  opacity: 0.85;
+}
+
+.annuler-container .message {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: red;
+}
