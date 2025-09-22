@@ -11,6 +11,7 @@ import { MonQrcodeComponent } from './mon-qrcode/mon-qrcode.component';
   
   ],
   imports: [
+    MonQrcodeComponent,
     CommonModule,
     BrowserModule,
     RouterModule.forRoot(routes)
