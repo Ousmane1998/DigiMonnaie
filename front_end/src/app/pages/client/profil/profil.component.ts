@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UtilisateurService } from '../../../services/utilisateur.service';
 import * as QRCode from 'qrcode';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profil',
@@ -16,7 +17,12 @@ export class ProfilComponent implements OnInit {
   qrData: string = '';
   erreurQR: boolean = false;
 
-  constructor(private userService: UtilisateurService) {}
+
+  constructor(private userService: UtilisateurService, private router: Router) {}
+
+  goToDeconnexion() {
+    this.router.navigate(['/login']);
+  }
 
   ngOnInit(): void {
     this.userService.getProfil().subscribe({

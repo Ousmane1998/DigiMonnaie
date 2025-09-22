@@ -1,15 +1,21 @@
-<header class="navbar">
-  <div class="nav-left">
-    <span class="logo">Diginomaie</span>
-    <nav class="menu">
-      <a routerLink="/client-dashboard/dashboard" class="menu-item">Tableau de bord</a>
-        <a routerLink="/client-dashboard/transfert" class="menu-item">Transfert</a>
-        <a routerLink="/client-dashboard/historique" class="menu-item">Historique</a>
-    </nav>
+<nav class="navbar navbar-light bg-white shadow-sm d-flex justify-content-between px-3 fixed-top">
+  <!-- Logo -->
+  <div class="d-flex align-items-center">
+    <a routerLink="/client-dashboard/dashboard" class="icon-link">
+      <img src="assets/logo.png" alt="logo" height="50" class="me-2">
+    </a>
   </div>
-  <div class="nav-right">
-    
-   <a routerLink="/client-dashboard/profil" class="icon-link">👤</a>
-     
+
+  <!-- Icônes et profil -->
+  <div class="d-flex align-items-center">
+    <i class="bi bi-bell fs-5 me-3"></i>
+    <div class="d-flex align-items-center">
+      <a routerLink="/client-dashboard/profil" class="icon-link">
+        <img src="assets/profil.jpg" alt="profile" class="rounded-circle me-2" width="35" height="35">
+      </a>
+      <span class="fw-bold">Ndeye koria Drame</span>
+    </div>
   </div>
-</header>
+</nav>
+
+

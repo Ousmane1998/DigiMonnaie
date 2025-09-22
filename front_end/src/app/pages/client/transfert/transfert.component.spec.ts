@@ -21,8 +21,5 @@ describe('TransfertComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-<<<<<<< HEAD
-=======
 
 
->>>>>>> e325d82bec718a82e70079656995b427a6e402a3

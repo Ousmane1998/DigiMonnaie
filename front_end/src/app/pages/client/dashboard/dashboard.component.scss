@@ -1,113 +1,349 @@
 .dashboard {
-  padding: 2rem;
+  padding: 20px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
+// Section Solde - Carte verte
+.solde-card {
+  background: linear-gradient(135deg, #2ECC71, #4CAF50);
+  border-radius: 24px;
+  padding: 24px;
+  margin-bottom: 32px;
+  color: white;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
 
-.solde-section {
-  background: #f5f5f5;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
+  /* Ajout flexbox pour centrer */
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* centre horizontalement */
+  justify-content: center; /* centre verticalement */
+  text-align: center;
 }
 
 .solde-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;             /* important pour garder l’œil à droite */
+  margin-bottom: 12px;
 }
 
-.label {
-  font-weight: bold;
-  font-size: 1.2rem;
+.solde-label {
+  font-size: 16px;
+  opacity: 0.9;
+  font-weight: 500;
 }
 
-.montant {
-  font-size: 1.5rem;
-  color: #007bff;
-}
-
-.toggle-visibility {
-  background: none;
+.visibility-toggle {
+  background: rgba(255, 255, 255, 0.2);
   border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-.actions-principales {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.action-btn {
-  flex: 1;
-  padding: 0.8rem;
-  font-size: 1rem;
-  background-color: #007bff;
+  border-radius: 12px;
+  padding: 8px;
   color: white;
-  border: none;
-  border-radius: 6px;
   cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
 }
 
-.actions-rapides {
-  margin-top: 2rem;
+.visibility-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
 }
 
-.quick-buttons {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+.visibility-toggle svg {
+  stroke-width: 2;
 }
 
-.quick-btn {
-  padding: 0.6rem 1rem;
-  background-color: #e0e0e0;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+.solde-montant {
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-top: 4px;
 }
 
-.qr-modal {
+
+// Section Actions
+.actions-section {
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c2c2c;
+    margin-bottom: 20px;
+    margin-top: 0;
+  }
+
+  .actions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .action-item {
+    background: white;
+    border: none;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+
+      .action-icon {
+        transform: scale(1.1);
+        color: #4CAF50;
+      }
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    .action-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      color: #666;
+
+      svg {
+        stroke-width: 1.5;
+      }
+    }
+
+    .action-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #2c2c2c;
+      text-align: center;
+    }
+
+    // Animation de ripple effect
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(76, 175, 80, 0.1);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    &:active::before {
+      width: 300px;
+      height: 300px;
+    }
+  }
+}
+
+// Modal QR
+.qr-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin-top: 80px;
+  margin-bottom: 60px;
+  animation: fadeIn 0.3s ease;
 }
 
-.qr-content {
+.qr-modal {
   background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  text-align: center;
-  width: 300px;
+  border-radius: 24px;
+  max-width: 400px;
+  width: 100%;
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+
+  .qr-header {
+    padding: 16px 16px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #2c2c2c;
+    }
+
+    .close-btn {
+      background: #f5f5f5;
+      border: none;
+      border-radius: 12px;
+      padding: 4px;
+      cursor: pointer;
+      color: #666;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: #e0e0e0;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .qr-body {
+    padding: 20px;
+    text-align: center;
+
+    .qr-container {
+      background: #f8f9fa;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+      display: inline-block;
+    }
+
+    .qr-image {
+      width: 180px;
+      height: 180px;
+      border-radius: 12px;
+    }
+
+    .user-info {
+      margin-bottom: 20px;
+
+      .user-name {
+        font-size: 18px;
+        font-weight: 600;
+        color: #2c2c2c;
+        margin: 0 0 8px 0;
+      }
+
+      .user-details {
+        font-size: 14px;
+        color: #666;
+        margin: 0 0 4px 0;
+      }
+
+      .account-number {
+        font-size: 14px;
+        color: #666;
+        margin: 0;
+        font-family: monospace;
+      }
+    }
+
+    .download-btn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      width: 100%;
+      justify-content: center;
+
+      &:hover {
+        background: #45a049;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
 }
 
-.qr-style {
-  width: 200px;
-  height: 200px;
-  margin: 1rem auto;
-  display: block;
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.btn-telecharger, .btn-fermer {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.btn-telecharger {
-  background-color: #007bff;
-  color: white;
-}
+// Responsive
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 16px;
+  }
 
-.btn-fermer {
-  background-color: #e53935;
-  color: white;
+  .solde-card {
+    padding: 20px;
+    margin-bottom: 24px;
+
+    .solde-montant {
+      font-size: 36px;
+    }
+  }
+
+  .actions-section {
+    .actions-grid {
+      gap: 12px;
+    }
+
+    .action-item {
+      padding: 20px 16px;
+
+      .action-icon {
+        width: 44px;
+        height: 44px;
+      }
+
+      .action-label {
+        font-size: 13px;
+      }
+    }
+  }
+
+  .qr-modal {
+    margin: 20px;
+    max-width: calc(100vw - 40px);
+
+    .qr-body .qr-image {
+      width: 160px;
+      height: 160px;
+    }
+  }
 }

@@ -1,33 +1,36 @@
-<<<<<<< HEAD
-<p>historique works!</p>
-=======
 <section class="historique-section">
-  <h2>📜 Historique des Transactions</h2>
+  <!-- Champ de recherche -->
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input type="text" placeholder="Effectuer une recherche" [(ngModel)]="searchTerm" />
+  </div>
 
+  <!-- Erreur de chargement -->
   <div *ngIf="erreurChargement">
     <p class="erreur">❌ Impossible de charger l’historique.</p>
   </div>
 
-  <div *ngIf="transactions.length === 0 && !erreurChargement">
+  <!-- Aucune transaction -->
+  <div *ngIf="filteredTransactions.length === 0 && !erreurChargement">
     <p>Aucune transaction trouvée.</p>
   </div>
 
-  <div *ngFor="let tx of transactions" class="transaction-card" [ngClass]="tx.type">
+  <!-- Liste des transactions -->
+  <div *ngFor="let tx of filteredTransactions" class="transaction-row">
     <div class="tx-icon">
       <ng-container [ngSwitch]="tx.type">
-        <span *ngSwitchCase="'dépôt'">⬇️</span>
-        <span *ngSwitchCase="'retrait'">⬆️</span>
-        <span *ngSwitchCase="'envoi'">📤</span>
+        <span *ngSwitchCase="'dépôt'" class="icon-depot">⬇️</span>
+        <span *ngSwitchCase="'retrait'" class="icon-retrait">⬆️</span>
+        <span *ngSwitchCase="'envoi'" class="icon-envoi">📤</span>
         <span *ngSwitchDefault>🔄</span>
       </ng-container>
     </div>
     <div class="tx-details">
       <p class="tx-type">{{ tx.type | titlecase }}</p>
-      <p class="tx-date">{{ tx.dateTransaction | date:'short' }}</p>
+      <p class="tx-date">{{ tx.dateTransaction | date:"d MMMM, HH:mm" }}</p>
     </div>
     <div class="tx-montant">
       <strong>{{ tx.montant | number:'1.0-0' }} XOF</strong>
     </div>
   </div>
 </section>
->>>>>>> e325d82bec718a82e70079656995b427a6e402a3

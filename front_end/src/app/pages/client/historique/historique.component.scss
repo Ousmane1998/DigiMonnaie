@@ -1,55 +1,79 @@
 .historique-section {
+  background: #f2f3f5; /* gris clair */
   padding: 1rem;
-  max-width: 600px;
-  margin: auto;
+  border-radius: 12px;
+  max-width: 700px;
+  margin: 2rem auto;
+  margin-top: 100px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.transaction-card {
+/* 🔍 Barre de recherche */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
+  margin-bottom: 1rem;
+}
+.search-box input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 0.95rem;
+  background: transparent;
+}
+.search-icon {
+  margin-right: 0.5rem;
+  color: #555;
+}
+
+/* Transactions en ligne */
+.transaction-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #f2f2f2;
+  background: #f9fbfd;
   padding: 0.8rem;
-  margin-bottom: 0.5rem;
-  border-radius: 6px;
+  border-bottom: 1px solid #ddd;
+}
+.transaction-row:last-child {
+  border-bottom: none;
 }
 
 .tx-icon {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  margin-right: 0.8rem;
 }
 
 .tx-details {
-  flex-grow: 1;
-  margin-left: 1rem;
+  flex: 1;
 }
-
 .tx-type {
-  font-weight: bold;
+  font-weight: 500;
+  margin: 0;
 }
-
 .tx-date {
   font-size: 0.85rem;
-  color: #666;
+  color: #777;
+  margin: 0;
 }
-
 .tx-montant {
   font-size: 1.1rem;
-  color: #333;
+  font-weight: 600;
+  color: #222;
 }
 
-.dépôt {
-  border-left: 4px solid green;
-}
+/* Icônes colorées */
+.icon-depot { color: green; }
+.icon-retrait { color: red; }
+.icon-envoi { color: dodgerblue; }
 
-.retrait {
-  border-left: 4px solid red;
-}
-
-.envoi {
-  border-left: 4px solid blue;
-}
-
+/* Message d'erreur */
 .erreur {
   color: red;
   text-align: center;
+  font-weight: bold;
 }

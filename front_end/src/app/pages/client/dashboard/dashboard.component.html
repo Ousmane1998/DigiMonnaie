@@ -1,38 +1,110 @@
 <section class="dashboard">
-  <div class="solde-section">
+  <!-- Section Solde - Style carte verte -->
+  <div class="solde-card">
     <div class="solde-header">
-      <span class="label">Solde disponible</span>
-      <span class="montant">
-        {{ soldeVisible ? utilisateur?.solde + ' XOF' : '••••••' }}
-      </span>
-      <button class="toggle-visibility" (click)="toggleSolde()">👁</button>
+      <span class="solde-label">Solde disponible</span>
+      <button class="visibility-toggle" (click)="toggleSolde()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path *ngIf="soldeVisible" d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle *ngIf="soldeVisible" cx="12" cy="12" r="3"/>
+          <path *ngIf="!soldeVisible" d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+          <line *ngIf="!soldeVisible" x1="1" y1="1" x2="23" y2="23"/>
+        </svg>
+      </button> 
     </div>
-
-    <div class="actions-principales">
-      <button class="action-btn">✈️ Transférer</button>
-      <button class="action-btn" (click)="toggleQR()">📱 Mon QR</button>
+    <div class="solde-montant">
+      {{ soldeVisible ? (utilisateur?.solde | number:'1.0-0') + ' XOF' : '••••••' }}
     </div>
   </div>
 
-  <div class="actions-rapides">
-    <h3>Actions rapides</h3>
-    <div class="quick-buttons">
-      <button class="quick-btn">✈️ Transférer</button>
-      <button class="quick-btn" (click)="allerVersQR()" (click)="toggleQR()">📱 Mon QR</button>
-      <button class="quick-btn">📄 Historique</button>
-      <button class="quick-btn" (click)="allerVersProfil()">👤 Profil</button>
+  <!-- Actions Rapides -->
+  <div class="actions-section">
+    <h3 class="section-title">Actions rapides</h3>
+    <div class="actions-grid">
+      <button class="action-item" (click)="allerVersTransfert()">
+        <div class="action-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22,2 15,22 11,13 2,9"/>
+          </svg>
+        </div>
+        <span class="action-label">Transférer</span>
+      </button>
+
+      <button class="action-item" (click)="toggleQR()">
+        <div class="action-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="3" width="5" height="5"/>
+            <rect x="16" y="3" width="5" height="5"/>
+            <rect x="3" y="16" width="5" height="5"/>
+            <path d="M21 16h-3a2 2 0 0 0-2 2v3"/>
+            <path d="M21 21v.01"/>
+            <path d="M12 7v3a2 2 0 0 1-2 2H7"/>
+            <path d="M3 12h.01"/>
+          </svg>
+        </div>
+        <span class="action-label">Mon QR</span>
+      </button>
+
+      <button class="action-item" (click)="allerVersHistorique()">
+        <div class="action-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="8" y1="6" x2="21" y2="6"/>
+            <line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/>
+            <line x1="3" y1="12" x2="3.01" y2="12"/>
+            <line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+        </div>
+        <span class="action-label">Historique</span>
+      </button>
+
+      <button class="action-item" (click)="allerVersProfil()">
+        <div class="action-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <span class="action-label">Profil</span>
+      </button>
     </div>
   </div>
 
   <!-- Modal QR -->
-  <div class="qr-modal" *ngIf="showQR">
-    <div class="qr-content">
-      <h3>📱 Mon QR Code</h3>
-      <img [src]="qrImage" alt="QR Code" class="qr-style" />
-      <p>{{ utilisateur?.nom }} – {{ utilisateur?.role }}</p>
-      <p>Compte : {{ utilisateur?.numeroCompte }}</p>
-      <button (click)="telechargerQR()" class="btn-telecharger">📥 Télécharger</button>
-      <button (click)="toggleQR()" class="btn-fermer">❌ Fermer</button>
+  <div class="qr-overlay" *ngIf="showQR" (click)="toggleQR()">
+    <div class="qr-modal" (click)="$event.stopPropagation()">
+      <div class="qr-header">
+        <h3>Mon QR Code</h3>
+        <button class="close-btn" (click)="toggleQR()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="qr-body">
+        <div class="qr-container">
+          <img [src]="qrImage" alt="QR Code" class="qr-image" />
+        </div>
+        
+        <div class="user-info">
+          <p class="user-name">{{ utilisateur?.nom }}</p>
+          <p class="user-details">{{ utilisateur?.role }}</p>
+          <p class="account-number">Compte : {{ utilisateur?.numeroCompte }}</p>
+        </div>
+        
+        <button class="download-btn" (click)="telechargerQR()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7,10 12,15 17,10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Télécharger
+        </button>
+      </div>
     </div>
   </div>
 </section>

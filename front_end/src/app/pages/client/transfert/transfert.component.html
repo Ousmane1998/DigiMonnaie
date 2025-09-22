@@ -1,28 +1,47 @@
-<<<<<<< HEAD
-<p>transfert works!</p>
-=======
-
-<section class="transfert-form">
-  <h2>Transfert d'argent</h2>
+<section class="transfert-form card shadow-sm p-4 mx-auto" style="max-width: 400px;">
+  <h2 class="text-center fw-bold mb-4">Transfert d'argent</h2>
 
   <form (ngSubmit)="envoyerTransfert()" [formGroup]="form">
-    <label>Destinataire</label>
-    <input formControlName="destinataire" placeholder="N° compte ou téléphone" />
-
-    <label>Montant (XOF)</label>
-    <input formControlName="montant" type="number" (input)="calculerFrais()" />
-
-    <p>Frais : {{ frais }} XOF – Total à payer : {{ total }} XOF</p>
-
-    <div class="resume">
-      <p>Destinataire : {{ form.value.destinataire || '-' }}</p>
-      <p>Montant : {{ form.value.montant || 0 }} XOF</p>
-      <p>Frais : {{ frais }} XOF</p>
-      <p>Total : {{ total }} XOF</p>
+    <!-- Numéro de téléphone -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">N° de compte</label>
+      <input 
+        formControlName="destinataire" 
+        type="text" 
+        class="form-control form-control-sm rounded-pill" 
+        placeholder="Entrer le N° de téléphone" />
     </div>
 
+    <!-- Montant envoyé -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">Montant Envoyé</label>
+      <input 
+        formControlName="montant" 
+        class="form-control form-control-sm rounded-pill" 
+        placeholder="Entrer le montant" 
+        (input)="calculerFrais()" />
+    </div>
 
-    <button type="submit" class="btn-envoyer">ENVOI</button>
+    <!-- Montant reçu -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">Montant Reçu</label>
+      <input 
+        formControlName="montantRecu" 
+        class="form-control form-control-sm rounded-pill" 
+        placeholder="Entrer le montant reçu" 
+        (input)="calculerMontantEnvoye()" />
+    </div>
+
+    <!-- Frais -->
+    <p class="text-danger text-center fw-bold">
+      Frais Digimonnaie = 1%
+    </p>
+
+    <!-- Bouton -->
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-success rounded-pill px-5 fw-bold">
+        ENVOYER
+      </button>
+    </div>
   </form>
 </section>
->>>>>>> e325d82bec718a82e70079656995b427a6e402a3
