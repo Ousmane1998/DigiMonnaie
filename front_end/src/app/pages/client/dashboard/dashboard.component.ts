@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
   private genererQRCode(): void {
     if (!this.utilisateur) return;
     
-    this.qrData = `DIGI-${this.utilisateur.id}-${this.utilisateur.role}-${this.utilisateur.numeroCompte}`;
+    this.qrData = `${this.utilisateur.numeroCompte}`;
     
     QRCode.toDataURL(this.qrData, {
       width: 256,
