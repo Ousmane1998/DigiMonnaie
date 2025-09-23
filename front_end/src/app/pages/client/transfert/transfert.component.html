@@ -1,9 +1,9 @@
-
-<section class="transfert-form">
-  <h2>Transfert d'argent</h2>
+<section class="transfert-form card shadow-sm p-4 mx-auto" style="max-width: 400px;">
+  <h2 class="text-center fw-bold mb-4">Transfert d'argent</h2>
   <div *ngIf="message" [style.color]="message.includes('❌') ? 'red' : 'green'" class="alert">
-  {{ message }}
-</div>
+    {{message}}
+
+  </div>
 
   <form (ngSubmit)="envoyerTransfert()" [formGroup]="form">
     <!-- Numéro de téléphone -->
