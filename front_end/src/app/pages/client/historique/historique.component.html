@@ -1,9 +1,4 @@
 <section class="historique-section">
-  <!-- Champ de recherche -->
-  <div class="search-box">
-    <span class="search-icon">🔍</span>
-    <input type="text" placeholder="Effectuer une recherche" [(ngModel)]="searchTerm" />
-  </div>
 
   <!-- Erreur de chargement -->
   <div *ngIf="erreurChargement">
@@ -14,9 +9,13 @@
   <div *ngIf="filteredTransactions.length === 0 && !erreurChargement">
     <p>Aucune transaction trouvée.</p>
   </div>
+  <div class="filtrage">
+  <input type="text" placeholder="🔍 Rechercher par type..." [(ngModel)]="filtreType" (input)="filtrerTransactions()" />
 
-  <!-- Liste des transactions -->
-  <div *ngFor="let tx of filteredTransactions" class="transaction-row">
+  <input type="date" [(ngModel)]="filtreDate" (change)="filtrerTransactions()" />
+</div>
+
+  <div *ngFor="let tx of transactionsPaginees" class="transaction-card" [ngClass]="tx.type">
     <div class="tx-icon">
       <ng-container [ngSwitch]="tx.type">
         <span *ngSwitchCase="'dépôt'" class="icon-depot">⬇️</span>
@@ -33,4 +32,10 @@
       <strong>{{ tx.montant | number:'1.0-0' }} XOF</strong>
     </div>
   </div>
+  <div class="pagination-controls" *ngIf="transactionsFiltrees.length > pageSize">
+  <button (click)="pageIndex = pageIndex - 1" [disabled]="pageIndex === 0">⬅️ Précédent</button>
+  <span>Page {{ pageIndex + 1 }} / {{ totalPages }}</span>
+  <button (click)="pageIndex = pageIndex + 1" [disabled]="(pageIndex + 1) * pageSize >= transactionsFiltrees.length">Suivant ➡️</button>
+</div>
+
 </section>

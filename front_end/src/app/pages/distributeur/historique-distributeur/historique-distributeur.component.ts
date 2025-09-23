@@ -13,8 +13,13 @@ import { FormsModule } from '@angular/forms';
 export class HistoriqueDistributeurComponent implements OnInit {
   historique: any[] = [];       // ✅ toutes les transactions
   message = '';
-  erreurChargement: boolean = false;
-  searchTerm: string = '';       // ✅ mot recherché
+  pageSize = 5;
+pageIndex = 0;
+historiqueFiltre: any[] = [];
+
+
+  // ✅ Ajoute ceci
+  searchTerm: string = '';
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +28,8 @@ export class HistoriqueDistributeurComponent implements OnInit {
       withCredentials: true
     }).subscribe({
       next: res => {
-        this.historique = res.historique; // on stocke les transactions ici
+        this.historique = res.historique;
+        this.historiqueFiltre = [...this.historique];
       },
       error: err => {
         this.message = '❌ Erreur : ' + (err.error?.error || err.message);
@@ -48,6 +54,7 @@ export class HistoriqueDistributeurComponent implements OnInit {
     });
   }
 
+ 
   // ✅ Getter pour filtrer les transactions
   get filteredHistorique() {
     if (!this.searchTerm) return this.historique;
@@ -58,4 +65,14 @@ export class HistoriqueDistributeurComponent implements OnInit {
       new Date(tx.dateTransaction).toLocaleString().toLowerCase().includes(term)
     );
   }
+
+  get historiquePagine(): any[] {
+  const start = this.pageIndex * this.pageSize;
+  return this.historiqueFiltre.slice(start, start + this.pageSize);
+}
+
+get totalPages(): number {
+  return Math.ceil(this.historiqueFiltre.length / this.pageSize);
+}
+
 }

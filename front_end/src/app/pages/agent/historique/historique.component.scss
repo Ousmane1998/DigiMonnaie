@@ -33,3 +33,13 @@ input {
   margin-bottom: 1rem;
   border-radius: 4px;
 }
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0rem;
+  margin-top: 1.5rem;
+  padding: 0.5rem;
+}
+

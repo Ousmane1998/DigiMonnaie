@@ -17,7 +17,8 @@ export class GererComptesComponent implements OnInit {
   nouveauNom: string = '';
   modalOuvert: boolean = false;
   compteSelectionne: any = null;
-
+  pageSize = 5;
+pageIndex = 0;
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -99,5 +100,13 @@ validerModification(): void {
   });
 }
 
+get comptesPaginees(): any[] {
+  const start = this.pageIndex * this.pageSize;
+  return this.comptesFiltres.slice(start, start + this.pageSize);
+}
+
+get totalPages(): number {
+  return Math.ceil(this.comptesFiltres.length / this.pageSize);
+}
 
 }

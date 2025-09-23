@@ -22,7 +22,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let t of transactionsFiltres">
+    <tr *ngFor="let t of transactionsPaginees">
       <td>{{ t.date_transaction | date:'dd/MM/yyyy HH:mm' }}</td>
       <td>{{ t.type }}</td>
       <td>{{ t.utilisateur }}</td>
@@ -42,6 +42,13 @@
       </td>
     </tr>
   </tbody>
+  
+
 </table>
+<div class="pagination-controls" *ngIf="transactionsFiltres.length > pageSize">
+  <button (click)="pageIndex = pageIndex - 1" [disabled]="pageIndex === 0">⬅️ Précédent</button>
+  <span>Page {{ pageIndex + 1 }} / {{ totalPages }}</span>
+  <button (click)="pageIndex = pageIndex + 1" [disabled]="(pageIndex + 1) * pageSize >= transactionsFiltres.length">Suivant ➡️</button>
+</div>
 <div *ngIf="transactionsFiltres.length > 0" class="total">
-  Total des transactions affichées : {{ transactionsFiltres.length }}</div>
+  Total  : {{ transactionsFiltres.length }}</div>

@@ -15,6 +15,9 @@ export class HistoriqueComponent implements OnInit {
   filtreDate: string = '';
   message: string = '';
   datePipe = new DatePipe('fr-FR');
+  pageSize = 5;
+pageIndex = 0;
+
 
   constructor(private http: HttpClient) {}
 
@@ -48,4 +51,15 @@ export class HistoriqueComponent implements OnInit {
       this.ngOnInit();
     });
   }
+
+  get transactionsPaginees(): any[] {
+  const filtrées = this.transactionsFiltres;
+  const start = this.pageIndex * this.pageSize;
+  return filtrées.slice(start, start + this.pageSize);
+}
+
+get totalPages(): number {
+  return Math.ceil(this.transactionsFiltres.length / this.pageSize);
+}
+
 }

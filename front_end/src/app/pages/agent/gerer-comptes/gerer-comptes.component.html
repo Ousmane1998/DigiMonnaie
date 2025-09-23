@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let compte of comptes">
+      <tr *ngFor="let compte of comptesPaginees">
         <td>{{ compte.nom }}</td>
         <td>{{ compte.numero_compte }}</td>
         
@@ -25,7 +25,13 @@
         <td><button (click)="bloquer(compte.id)">🚫</button></td>
         <td><button (click)="supprimer(compte.id)" class="danger">🗑️</button></td>
       </tr>
-    </tbody>
+    </tbody><div class="pagination-controls" *ngIf="comptesFiltres.length > pageSize">
+  <button (click)="pageIndex = pageIndex - 1" [disabled]="pageIndex === 0">⬅️ Précédent</button>
+  <span>Page {{ pageIndex + 1 }} / {{ totalPages }}</span>
+  <button (click)="pageIndex = pageIndex + 1" [disabled]="(pageIndex + 1) * pageSize >= comptesFiltres.length">Suivant ➡️</button>
+</div>
+
+
   </table>
 </div>
 <div class="modal" *ngIf="modalOuvert">

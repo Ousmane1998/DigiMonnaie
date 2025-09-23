@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  email = '';
+  identifiant = '';
   motDePasse = '';
   message = '';
 
@@ -21,7 +21,7 @@ export class LoginComponent {
 
  login() {
   this.http.post<any>('http://localhost:3000/api/agent/login', {
-    email: this.email,
+    identifiant: this.identifiant,
     motDePasse: this.motDePasse,
     },
     {

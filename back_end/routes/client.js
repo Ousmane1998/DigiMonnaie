@@ -42,6 +42,10 @@ router.post('/transfert', async (req, res) => {
 
     const compteDestinataire = destinataireCompte[0];
 
+    if (compteDestinataire.numeroCompte === compteClient.numeroCompte) {
+  return res.status(400).json({ error: 'Impossible de faire un transfert vers votre propre compte' });
+}
+
     // 4. Enregistrer la transaction
     await promisePool.query(
       `INSERT INTO Transactions (type, montant, frais, compte_id, utilisateur_id, statut)
