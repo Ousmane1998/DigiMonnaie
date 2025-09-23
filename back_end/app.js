@@ -16,11 +16,6 @@ const utilisateurRoutes = require('./routes/utilisateur');
 const distributeurRoutes = require('./routes/distributeur');
 const authRoutes = require('./routes/auth');
 
-
-
-
-
-
 app.use(cors(
   {
   origin: 'http://localhost:4200', 

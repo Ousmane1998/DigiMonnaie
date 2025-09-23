@@ -17,8 +17,12 @@ export class ProfilComponent implements OnInit {
   qrData: string = '';
   erreurQR: boolean = false;
 
-  constructor(private userService: UtilisateurService,private router: Router) {}
 
+  constructor(private userService: UtilisateurService, private router: Router) {}
+
+  goToDeconnexion() {
+    this.router.navigate(['/login']);
+  }
 
   ngOnInit(): void {
     this.userService.getProfil().subscribe({
@@ -30,7 +34,7 @@ export class ProfilComponent implements OnInit {
           return;
         }
 
-        this.qrData = `DIGI-${this.utilisateur.id}-${this.utilisateur.role}-${this.utilisateur.numeroCompte}`;
+        this.qrData = `${this.utilisateur.numeroCompte}`;
         QRCode.toDataURL(this.qrData)
           .then(url => this.qrImage = url)
           .catch(err => {

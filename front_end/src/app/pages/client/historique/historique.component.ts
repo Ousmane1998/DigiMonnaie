@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // ✅ pour ngModel
 import { TransactionService } from '../../../services/transaction.service';
 import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-historique',
@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './historique.component.html',
   styleUrls: ['./historique.component.scss']
 })
+
 export class HistoriqueComponent implements OnInit {
   transactions: any[] = [];
   erreurChargement: boolean = false;
@@ -21,6 +22,10 @@ transactionsFiltrees: any[] = [];
 //Variable de pagination:       // toutes les transactions // après filtrage
 pageSize = 5;                     // nombre par page
 pageIndex = 0;  
+
+
+  // ✅ Ajoute ceci
+searchTerm: string = '';
 
   constructor(private transactionService: TransactionService, private http:HttpClient) {}
 
@@ -38,6 +43,18 @@ pageIndex = 0;
     }
   });
 }
+
+
+  // ✅ Getter pour filtrer
+  get filteredTransactions() {
+    if (!this.searchTerm) return this.transactions;
+    const term = this.searchTerm.toLowerCase();
+    return this.transactions.filter(tx =>
+      tx.type.toLowerCase().includes(term) ||
+      tx.montant.toString().includes(term) ||
+      new Date(tx.dateTransaction).toLocaleString().toLowerCase().includes(term)
+    );
+  }
 
 
 filtrerTransactions(): void {
@@ -61,3 +78,4 @@ get totalPages(): number {
 
 
 }
+

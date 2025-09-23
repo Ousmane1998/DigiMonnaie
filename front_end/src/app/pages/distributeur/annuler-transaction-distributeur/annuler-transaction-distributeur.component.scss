@@ -52,7 +52,7 @@
   width: 100%;
   margin-top: 25px;
   padding: 14px;
-  background: #f30000;
+  background: #007bff;
   color: #fff;
   font-size: 16px;
   font-weight: bold;
@@ -64,6 +64,7 @@
 
 .annuler-container button:hover {
   opacity: 0.85;
+   background: red;
 }
 
 .annuler-container .message {

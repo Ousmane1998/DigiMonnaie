@@ -1,4 +1,12 @@
 <h2>Mon historique</h2>
+
+<!-- Champ de recherche -->
+<div class="search-box">
+  <span class="search-icon">🔍</span>
+  <input type="text" placeholder="Effectuer une recherche" [(ngModel)]="searchTerm" />
+</div>
+
+<!-- Message d'erreur ou confirmation -->
 <div *ngIf="message" class="message">{{ message }}</div>
 
 <div *ngFor="let tx of historiquePagine" class="transaction-card">

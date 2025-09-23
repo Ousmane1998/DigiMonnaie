@@ -1,35 +1,46 @@
 .historique-section {
-  max-width: 700px;
-  margin: 20px auto;
-  padding: 20px;
-  background: #f9faff;
-  border: 1px solid #ccc;
+  background: #f2f3f5; /* gris clair */
+  padding: 1rem;
   border-radius: 12px;
-  font-family: Arial, sans-serif;
+  max-width: 700px;
+  margin: 2rem auto;
+  margin-top: 100px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.historique-section h2 {
-  text-align: center;
-  font-size: 18px;
-  margin-bottom: 20px;
-  color: #111;
+/* 🔍 Barre de recherche */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
+  margin-bottom: 1rem;
+}
+.search-box input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 0.95rem;
+  background: transparent;
+}
+.search-icon {
+  margin-right: 0.5rem;
+  color: #555;
 }
 
-/* Message d’erreur */
-.erreur {
-  color: red;
-  text-align: center;
-  font-weight: bold;
-}
-
-/* Une transaction */
-.transaction-card {
+/* Transactions en ligne */
+.transaction-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 0;
+  background: #f9fbfd;
+  padding: 0.8rem;
   border-bottom: 1px solid #ddd;
-  font-size: 15px;
+}
+.transaction-row:last-child {
+  border-bottom: none;
 }
 
 .transaction-card:last-child {
@@ -38,44 +49,37 @@
 
 /* Icône transaction */
 .tx-icon {
-  font-size: 20px;
-  margin-right: 10px;
+  font-size: 1.3rem;
+  margin-right: 0.8rem;
 }
 
 /* Détails transaction */
 .tx-details {
   flex: 1;
-  display: flex;
-  flex-direction: column;
 }
-
 .tx-type {
-  font-weight: bold;
+  font-weight: 500;
   margin: 0;
 }
-
 .tx-date {
-  font-size: 13px;
-  color: #555;
+  font-size: 0.85rem;
+  color: #777;
   margin: 0;
 }
-
-/* Montant aligné à droite */
 .tx-montant {
-  font-size: 15px;
-  font-weight: bold;
-  white-space: nowrap;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
 }
 
-/* Couleurs selon type */
-.transaction-card.dépôt .tx-icon {
-  color: green;
-}
+/* Icônes colorées */
+.icon-depot { color: green; }
+.icon-retrait { color: red; }
+.icon-envoi { color: dodgerblue; }
 
-.transaction-card.retrait .tx-icon {
+/* Message d'erreur */
+.erreur {
   color: red;
-}
-
-.transaction-card.envoi .tx-icon {
-  color: blue;
+  text-align: center;
+  font-weight: bold;
 }

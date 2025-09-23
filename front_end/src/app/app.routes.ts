@@ -26,6 +26,7 @@ import { MotDePasseOublieComponent } from './mot-de-passe-oublie/mot-de-passe-ou
 import { ReinitialiserMotDePasseComponent } from './pages/auth/reinitialiser-mot-de-passe/reinitialiser-mot-de-passe.component';
 import { AuthGuard } from './guards/auth.guard';
 
+
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
@@ -59,6 +60,7 @@ export const routes: Routes = [
     ]
   },
  
+
   {
     path: 'client-dashboard',
     component: ClientComponent,
@@ -99,7 +101,6 @@ export const routes: Routes = [
   { path: '**', redirectTo: '/login' }
 
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

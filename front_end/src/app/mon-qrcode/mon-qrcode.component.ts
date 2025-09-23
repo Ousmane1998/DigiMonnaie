@@ -30,7 +30,7 @@ export class MonQrcodeComponent implements OnInit {
           return;
         }
 
-        this.qrData = `DIGI-${this.utilisateur.id}-${this.utilisateur.role}-${this.utilisateur.numeroCompte}`;
+        this.qrData = `${this.utilisateur.numeroCompte}`;
 
         // ✅ Génération du QR code
         QRCode.toDataURL(this.qrData)

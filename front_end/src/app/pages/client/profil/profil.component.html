@@ -1,6 +1,6 @@
 <section class="profil-section">
   <div class="profil-header">
-    <img src="assets/images/user-placeholder.png" alt="Photo de profil" class="profil-photo" />
+    <img src="assets/ppp.jpg" alt="Photo de profil" class="profil-photo" />
     <div class="profil-info">
       <h2>{{ utilisateur?.nom || 'Prénom Nom' }}</h2>
       <p>ID : {{ utilisateur?.id || 'N2250123456' }}</p>
@@ -28,5 +28,10 @@
     <p class="erreur">❌ Impossible de générer le QR code.</p>
   </div>
 
-  <button class="btn-deconnexion" (click)="deconnexion()">Déconnexion</button>
+  <button
+      (click)="goToDeconnexion()"
+      class="btn-deconnexion">
+      Déconnexion
+  </button>
+
 </section>

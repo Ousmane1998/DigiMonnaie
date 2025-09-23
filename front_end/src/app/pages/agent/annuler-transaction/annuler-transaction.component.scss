@@ -5,7 +5,7 @@
 
   h2 {
     margin-bottom: 20px;
-    color: #c0392b;
+    color: #007bff;
   }
 
   label {
@@ -25,7 +25,7 @@
 
   .annuler-btn {
     margin-top: 20px;
-    background-color: #e74c3c;
+    background-color: #007bff;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -34,13 +34,13 @@
     font-weight: bold;
 
     &:hover {
-      background-color: #c0392b;
+      background-color: #1141a8;
     }
   }
 
   .message {
     margin-top: 15px;
     font-weight: 500;
-    color: #2c3e50;
+    color:  #c0392b;
   }
 }
