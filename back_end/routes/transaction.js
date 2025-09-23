@@ -107,6 +107,7 @@ router.post('/depot-retrait', async (req, res) => {
     }
     const distributeurCompteId = rows[0].id;
     // 🔍 Vérifier que le distributeur a assez de solde
+    const frais = montant * 0.01;
 const montantTotal = type === 'retrait' ? montant + frais : montant;
 
 const [soldeDistRows] = await promisePool.query(
@@ -131,7 +132,7 @@ if (soldeDistributeur < montantTotal) {
     }
     const destinataireId = compteRows[0].id;
 
-    const frais = montant * 0.01;
+    
     const commission = frais;
 
     const conn = await promisePool.getConnection();
