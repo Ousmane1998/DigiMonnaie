@@ -146,7 +146,7 @@
 
       .action-icon {
         transform: scale(1.1);
-        color: #4CAF50;
+        color:#007bff;
       }
     }
 
@@ -314,7 +314,7 @@
       justify-content: center;
 
       &:hover {
-        background:#007bff;
+        background:#1141a8;
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
       }

@@ -1,7 +1,16 @@
 <h2>Mon historique</h2>
+
+<!-- Champ de recherche -->
+<div class="search-box">
+  <span class="search-icon">🔍</span>
+  <input type="text" placeholder="Effectuer une recherche" [(ngModel)]="searchTerm" />
+</div>
+
+<!-- Message d'erreur ou confirmation -->
 <div *ngIf="message" class="message">{{ message }}</div>
 
-<div *ngFor="let tx of historique" class="transaction-card">
+<!-- Liste des transactions filtrées -->
+<div *ngFor="let tx of filteredHistorique" class="transaction-card">
   <div class="heure">{{ tx.date_transaction | date:'HH:mm' }}</div>
   <div class="type">{{ tx.type | titlecase }}</div>
   <div class="client">Client : {{ tx.client_telephone }}</div>

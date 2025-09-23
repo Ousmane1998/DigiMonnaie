@@ -28,24 +28,24 @@ export class TransfertComponent {
       montantRecu: [0] // si tu veux binder aussi le montant reçu
     });
   }
+  
+// Quand on modifie le montant envoyé
+calculerFrais() {
+  const montant = this.form.value.montant || 0;
+  this.frais = Math.round(montant * 0.02); // ✅ 2% au lieu de 1%
+  this.total = montant;
+  this.montantRecu = montant - this.frais;
+  this.form.patchValue({ montantRecu: this.montantRecu }, { emitEvent: false });
+}
 
-  // Quand on modifie le montant envoyé
-  calculerFrais() {
-    const montant = this.form.value.montant || 0;
-    this.frais = Math.round(montant * 0.01);
-    this.total = montant;
-    this.montantRecu = montant - this.frais;
-    this.form.patchValue({ montantRecu: this.montantRecu }, { emitEvent: false });
-  }
-
-  // Quand on modifie le montant reçu
-  calculerMontantEnvoye() {
-    const recu = this.form.value.montantRecu || 0;
-    this.montantRecu = recu;
-    this.total = Math.round(recu / 0.99); // montantEnvoye = montantRecu / 0.99
-    this.frais = this.total - recu;
-    this.form.patchValue({ montant: this.total }, { emitEvent: false });
-  }
+// Quand on modifie le montant reçu
+calculerMontantEnvoye() {
+  const recu = this.form.value.montantRecu || 0;
+  this.montantRecu = recu;
+  this.total = Math.round((recu / 0.98) / 100) * 100; // ✅ 98% au lieu de 99%
+  this.frais = this.total - recu;
+  this.form.patchValue({ montant: this.total }, { emitEvent: false });
+}
 
   envoyerTransfert() {
     if (this.form.invalid) {

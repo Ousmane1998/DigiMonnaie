@@ -1,0 +1,78 @@
+/* Conteneur principal */
+.activation-container {
+  max-width: 420px;
+  margin: 80px auto;
+  padding: 35px 30px;
+  background-color: #f0f4ff;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Titre */
+.activation-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #007bff;
+  font-weight: 600;
+}
+
+/* Form group */
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #007bff;
+}
+
+/* Inputs */
+input {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #a6b8ff;
+  font-size: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(26, 60, 136, 0.4);
+  outline: none;
+}
+
+/* Bouton */
+button {
+  width: 100%;
+  padding: 14px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background-color: #324fb8;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+/* Messages d'erreur */
+.error {
+  color: #e63946;
+  font-size: 14px;
+  margin-top: 5px;
+}

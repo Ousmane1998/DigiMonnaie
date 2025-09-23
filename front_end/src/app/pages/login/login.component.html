@@ -6,11 +6,11 @@
 
 
     <form (ngSubmit)="login()">
-      <label>Email ou portable</label>
+      <label>Email ou N° de compte</label>
       <input [(ngModel)]="email" name="email" placeholder="Email" required>
 
       <label>Mot de passe</label>
-      <<input [(ngModel)]="motDePasse" name="motDePasse" type="password" placeholder="Mot de passe" required>
+      <input [(ngModel)]="motDePasse" name="motDePasse" type="password" placeholder="Mot de passe" required>
       <button type="submit">Se connecter</button>
     </form>
 

@@ -1,8 +1,9 @@
 <section class="transfert-form card shadow-sm p-4 mx-auto" style="max-width: 400px;">
-  <h2 class="text-center fw-bold mb-4">Transfert d'argent</h2>
-  <div *ngIf="message" [style.color]="message.includes('❌') ? 'red' : 'green'" class="alert">
-    {{message}}
+  <h2 class="text-center fw-bold mb-4 text-primary">Transfert d'argent</h2>
 
+  <!-- Message : vert remplacé par bleu -->
+  <div *ngIf="message" [style.color]="message.includes('❌') ? 'red' : 'blue'" class="alert">
+    {{message}}
   </div>
 
   <form (ngSubmit)="envoyerTransfert()" [formGroup]="form">
@@ -38,12 +39,12 @@
 
     <!-- Frais -->
     <p class="text-danger text-center fw-bold">
-      Frais Digimonnaie = 1%
+      Frais Digimonnaie = 2%
     </p>
 
-    <!-- Bouton -->
+    <!-- Bouton : success -> primary (bleu) -->
     <div class="d-flex justify-content-center">
-      <button type="submit" class="btn btn-success rounded-pill px-5 fw-bold">
+      <button type="submit" class="btn btn-primary rounded-pill px-5 fw-bold">
         ENVOYER
       </button>
     </div>
