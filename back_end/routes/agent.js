@@ -6,10 +6,15 @@ const bcrypt = require('bcrypt');
 
 //route login
 router.post('/login', (req, res) => {
-  const { email, motDePasse } = req.body;
+  const { identifiant, motDePasse } = req.body;
 
 
-  pool.query('SELECT * FROM Utilisateurs WHERE email = ?', [email], (err, results) => {
+  pool.query(`SELECT U.*, C.numeroCompte 
+   FROM Utilisateurs U
+   LEFT JOIN Compte C ON C.utilisateur_id = U.id
+   WHERE U.email = ? OR C.numeroCompte = ?
+   LIMIT 1`,
+  [identifiant, identifiant],(err, results) => {
     if (err) return res.status(500).send(err);
     if (results.length === 0) return res.status(401).send('Utilisateur non trouvé');
 
@@ -27,7 +32,8 @@ router.post('/login', (req, res) => {
           id: utilisateur.id,
           role: utilisateur.role,
           prenom: utilisateur.prenom,
-          nom: utilisateur.nom
+          nom: utilisateur.nom,
+          numeroCompte: utilisateur.numeroCompte
         }
       });
     });

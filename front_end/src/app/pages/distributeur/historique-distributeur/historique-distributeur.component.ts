@@ -12,6 +12,9 @@ import { CommonModule } from '@angular/common';
 export class HistoriqueDistributeurComponent implements OnInit {
   historique: any[] = [];
   message = '';
+  pageSize = 5;
+pageIndex = 0;
+historiqueFiltre: any[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -21,6 +24,7 @@ export class HistoriqueDistributeurComponent implements OnInit {
     }).subscribe({
       next: res => {
         this.historique = res.historique;
+        this.historiqueFiltre = [...this.historique];
       },
       error: err => {
         this.message = '❌ Erreur : ' + (err.error?.error || err.message);
@@ -44,4 +48,13 @@ export class HistoriqueDistributeurComponent implements OnInit {
       }
     });
   }
+
+  get historiquePagine(): any[] {
+  const start = this.pageIndex * this.pageSize;
+  return this.historiqueFiltre.slice(start, start + this.pageSize);
+}
+
+get totalPages(): number {
+  return Math.ceil(this.historiqueFiltre.length / this.pageSize);
+}
 }

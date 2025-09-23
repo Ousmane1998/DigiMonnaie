@@ -26,6 +26,16 @@ const { pool, promisePool } = require('../config/db');
 
     const transaction = txRows[0];
 
+
+// ✅ Vérification du délai d’annulation
+const dateTx = new Date(transaction.date_transaction);
+const maintenant = new Date();
+const diffMinutes = (maintenant - dateTx) / (1000 * 60);
+
+if (diffMinutes > 30) {
+  return res.status(403).json({ error: '⏱️ Délai d’annulation dépassé (30 minutes max)' });
+}
+
     // 2. Vérifier que l’utilisateur est agent ou distributeur
     const [userRows] = await promisePool.query(
       'SELECT role FROM Utilisateurs WHERE id = ?',
@@ -96,6 +106,21 @@ router.post('/depot-retrait', async (req, res) => {
       return res.status(404).json({ error: 'Compte distributeur introuvable' });
     }
     const distributeurCompteId = rows[0].id;
+    // 🔍 Vérifier que le distributeur a assez de solde
+const montantTotal = type === 'retrait' ? montant + frais : montant;
+
+const [soldeDistRows] = await promisePool.query(
+  'SELECT solde FROM Compte WHERE id = ?',
+  [distributeurCompteId]
+);
+const soldeDistributeur = soldeDistRows[0].solde;
+
+if (soldeDistributeur < montantTotal) {
+  return res.status(400).json({
+    error: `❌ Solde distributeur insuffisant. Il faut au moins ${montantTotal} XOF pour cette opération.`
+  });
+}
+
 
     const [compteRows] = await promisePool.query(
       'SELECT id FROM Compte WHERE numeroCompte = ?',

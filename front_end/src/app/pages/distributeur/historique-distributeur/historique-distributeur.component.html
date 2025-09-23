@@ -1,7 +1,7 @@
 <h2>Mon historique</h2>
 <div *ngIf="message" class="message">{{ message }}</div>
 
-<div *ngFor="let tx of historique" class="transaction-card">
+<div *ngFor="let tx of historiquePagine" class="transaction-card">
   <div class="heure">{{ tx.date_transaction | date:'HH:mm' }}</div>
   <div class="type">{{ tx.type | titlecase }}</div>
   <div class="client">Client : {{ tx.client_telephone }}</div>
@@ -9,4 +9,12 @@
   <div class="commission">Commission : +{{ tx.frais | number }} XOF</div>
   <button (click)="annuler(tx.numero_transaction)">Annuler</button>
   <button>Reçu</button>
+
+  
+
+</div>
+<div class="pagination-controls" *ngIf="historiqueFiltre.length > pageSize">
+  <button (click)="pageIndex = pageIndex - 1" [disabled]="pageIndex === 0">⬅️ Précédent</button>
+  <span>Page {{ pageIndex + 1 }} / {{ totalPages }}</span>
+  <button (click)="pageIndex = pageIndex + 1" [disabled]="(pageIndex + 1) * pageSize >= historiqueFiltre.length">Suivant ➡️</button>
 </div>

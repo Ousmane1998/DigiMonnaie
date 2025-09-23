@@ -24,6 +24,7 @@ import { MonQrcodeComponent } from './mon-qrcode/mon-qrcode.component';
 import { ProfilComponent } from './pages/client/profil/profil.component';
 import { MotDePasseOublieComponent } from './mot-de-passe-oublie/mot-de-passe-oublie.component';  
 import { ReinitialiserMotDePasseComponent } from './pages/auth/reinitialiser-mot-de-passe/reinitialiser-mot-de-passe.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -34,12 +35,13 @@ export const routes: Routes = [
   {
     path: 'agent-dashboard',
     component: AgentComponent,
+    canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, // ✅ redirection par défaut
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full'}, // ✅ redirection par défaut
       { path: 'dashboard', component: DashboardAgentComponent },
       { path: 'creer-compte', component: CreerCompteComponent },
       { path: 'historique', component: HistoriqueComponent },
-      { path: 'annuler-transaction', component: AnnulerTransactionComponent },
+      { path: 'annuler-transaction', component: AnnulerTransactionComponent},
       { path: 'gerer-compte', component: GererComptesComponent }
        
     ]
@@ -47,23 +49,26 @@ export const routes: Routes = [
   {
     path: 'distributeur-dashboard',
     component: DistributeurComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'tableau-de-bord', pathMatch: 'full' },
       { path: 'tableau-de-bord', component: TableauDeBordComponent },
       { path: 'depot-retrait', component: DepotRetraitComponent },
       { path: 'historique-distributeur', component: HistoriqueDistributeurComponent },
-      { path: 'annuler-transaction-distributeur', component: AnnulerTransactionDistributeurComponent }
+      { path: 'annuler-transaction-distributeur', component: AnnulerTransactionDistributeurComponent  }
     ]
   },
  
   {
     path: 'client-dashboard',
     component: ClientComponent,
+     canActivate: [AuthGuard],
     children: [
-       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
+       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, // ✅ redirection par défaut
       {
         path: 'dashboard',
-        component: DashboardComponent // ✅ accessible via /client-dashboard/dashboard
+        component: DashboardComponent,
+       
       },
       {
         path: 'transfert',
@@ -90,7 +95,9 @@ export const routes: Routes = [
   },
   
  
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' }
+
 ];
 
 
