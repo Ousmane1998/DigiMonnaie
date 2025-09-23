@@ -7,7 +7,8 @@
 }
 // Section Solde - Carte verte
 .solde-card {
-  background: linear-gradient(135deg, #2ECC71, #4CAF50);
+  background: linear-gradient(135deg, rgb(112, 202, 232),#007bff);
+  height: 40vh;
   border-radius: 24px;
   padding: 24px;
   margin-bottom: 32px;
@@ -15,39 +16,53 @@
   position: relative;
   box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
 
-  /* Ajout flexbox pour centrer */
   display: flex;
   flex-direction: column;
-  align-items: center;     /* centre horizontalement */
-  justify-content: center; /* centre verticalement */
-  text-align: center;
+  align-items: center; /* ✅ centre le montant */
 }
 
+/* En-tête : label à gauche et œil à droite */
 .solde-header {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  justify-content: space-between; /* ✅ gauche & droite */
+  align-items: center;
+  margin-bottom: 16px;
 }
 
-.solde-header .label {
-  font-weight: bold;
+.solde-label {
   font-size: 16px;
+  opacity: 0.9;
+  font-weight: 500;
 }
 
-.solde-header .montant {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.toggle-visibility {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: none;
+/* Bouton œil */
+.visibility-toggle {
+  background: rgba(255, 255, 255, 0.2);
   border: none;
-  cursor: pointer;
-  font-size: 18px;
+  border-radius: 12px;
+  padding: 8px;
   color: white;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.visibility-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.visibility-toggle svg {
+  stroke-width: 2;
+}
+
+/* Montant centré */
+.solde-montant {
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  text-align: center; /* ✅ bien centré horizontalement */
 }
 
 /* --- Actions principales (dans la carte verte) --- */
@@ -283,7 +298,7 @@
     }
 
     .download-btn {
-      background: #4CAF50;
+      background: #007bff;
       color: white;
       border: none;
       border-radius: 12px;
@@ -299,7 +314,7 @@
       justify-content: center;
 
       &:hover {
-        background: #45a049;
+        background:#007bff;
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
       }
