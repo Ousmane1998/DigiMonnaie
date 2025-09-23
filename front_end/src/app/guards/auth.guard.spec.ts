@@ -1,17 +1,36 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn } from '@angular/router';
+import { AuthGuard } from './auth.guard';
+import { Router } from '@angular/router';
 
-import { authGuard } from './auth.guard';
-
-describe('authGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => authGuard(...guardParameters));
+describe('AuthGuard', () => {
+  let guard: AuthGuard;
+  let routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        AuthGuard,
+        { provide: Router, useValue: routerSpy }
+      ]
+    });
+
+    guard = TestBed.inject(AuthGuard);
   });
 
   it('should be created', () => {
-    expect(executeGuard).toBeTruthy();
+    expect(guard).toBeTruthy();
+  });
+
+  it('should block access if not connected', () => {
+    spyOn(localStorage, 'getItem').and.returnValue(null); // simulate no session
+    const result = guard.canActivate();
+    expect(result).toBeFalse();
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
+  });
+
+  it('should allow access if connected', () => {
+    spyOn(localStorage, 'getItem').and.returnValue('123'); // simulate session
+    const result = guard.canActivate();
+    expect(result).toBeTrue();
   });
 });
