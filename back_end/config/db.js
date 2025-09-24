@@ -1,23 +1,11 @@
-const mysql = require('mysql2');
+// db.js
+const mongoose = require('mongoose');
 
-const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'digimonnaie',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-});
+mongoose.connect('mongodb://127.0.0.1:27017/digimonnaie', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log('✅ Connecté à la base MongoDB : digimonnaie'))
+.catch(err => console.error('❌ Erreur de connexion à MongoDB :', err));
 
-// Vérification de connexion
-pool.getConnection((err, conn) => {
-  if (err) throw err;
-  console.log('✅ Connecté à la base MySQL : digimonnaie');
-  conn.release();
-});
-
-module.exports = {
-  pool,             // pool normal
-  promisePool: pool.promise()  // pool en promesse
-};
+module.exports = mongoose;

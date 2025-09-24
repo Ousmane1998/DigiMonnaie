@@ -1,4 +1,5 @@
-const db = require('./config/db'); // Connexion à MySQL
+const db = require('./config/db'); // Connexion à MongoDB
+
 
 const express = require('express');
 const cors = require('cors');
